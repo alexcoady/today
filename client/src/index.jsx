@@ -1,11 +1,9 @@
+// NPM
 import React from 'react';
 import { render } from 'react-dom';
 
-console.log('hiya from index.jsx');
-
-(() => {
-  console.log('and what?');
-})();
+// App
+import style from './test.css';
 
 const Test = ({ children }) => {
 
@@ -18,7 +16,7 @@ const Test = ({ children }) => {
 
 render(
   <Test>
-    Just a silly test
+    Test component
   </Test>,
   document.getElementById('App')
 );
