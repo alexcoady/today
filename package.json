@@ -4,7 +4,10 @@
   "description": "Was today a good day application",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --config tasks/webpack.client.config.js --content-base client",
+    "validate": "webpack-validator tasks/webpack.client.config.js",
+    "webpack:client": "webpack --config tasks/webpack.client.config.js"
   },
   "repository": {
     "type": "git",
@@ -23,7 +26,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "npm-run-all": "^3.1.0",
     "postcss-loader": "^0.13.0",
-    "webpack": "^1.13.2",
+    "webpack": "^2.1.0-beta.25",
     "webpack-dev-server": "^1.16.1",
     "webpack-validator": "^2.2.7"
   }
