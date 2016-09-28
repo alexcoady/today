@@ -1,5 +1,9 @@
+// NPM
 import React from 'react';
 import { render } from 'react-dom';
+
+// App
+import style from './test.css';
 
 const Test = ({ children }) => {
 

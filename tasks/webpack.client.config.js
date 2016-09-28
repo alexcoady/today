@@ -1,4 +1,7 @@
 var path = require('path');
+var webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var postcssCalc = require('postcss-calc');
 
 module.exports = function () {
 
@@ -19,14 +22,28 @@ module.exports = function () {
         test: /\.(jsx|js)$/,
         exclude: /node_modules/,
         loader: 'babel'
+      }, {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('css?modules&importLoaders=1&localIdentName=[name]-[local]--[hash:base64:5]!postcss')
       }]
     },
+    plugins: [
+      new ExtractTextPlugin('style.css'),
+      new webpack.LoaderOptionsPlugin({
+        test: /\.css$/,
+        options: {
+          postcss: [
+            postcssCalc
+          ]
+        }
+      })
+    ],
     target: 'web',
     devServer: {
       port: 8082,
       host: '0.0.0.0',
       inline: true,
       historyApiFallback: true
-    },
+    }
   };
 }
