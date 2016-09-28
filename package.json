@@ -29,5 +29,14 @@
     "webpack": "^2.1.0-beta.25",
     "webpack-dev-server": "^1.16.1",
     "webpack-validator": "^2.2.7"
+  },
+  "dependencies": {
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.8.1",
+    "react-router-redux": "^4.0.6",
+    "redux-promise-middleware": "^4.0.0",
+    "reselect": "^2.5.4"
   }
 }
