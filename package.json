@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/alexcoady/today#readme",
   "devDependencies": {
+    "autoprefixer": "^6.5.0",
     "babel-core": "^6.16.0",
     "babel-loader": "^6.2.5",
     "babel-plugin-transform-object-rest-spread": "^6.16.0",
@@ -28,7 +29,12 @@
     "css-loader": "^0.25.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "npm-run-all": "^3.1.0",
+    "postcss-calc": "^5.3.1",
+    "postcss-custom-media": "^5.0.1",
+    "postcss-custom-properties": "^5.0.1",
+    "postcss-import": "^8.1.2",
     "postcss-loader": "^0.13.0",
+    "postcss-nested": "^1.0.0",
     "webpack": "^2.1.0-beta.25",
     "webpack-dev-server": "^1.16.1",
     "webpack-validator": "^2.2.7"

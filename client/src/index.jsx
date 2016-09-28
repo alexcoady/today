@@ -1,12 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-console.log('hiya from index.jsx');
-
-(() => {
-  console.log('and what?');
-})();
-
 const Test = ({ children }) => {
 
   return (
@@ -18,7 +12,7 @@ const Test = ({ children }) => {
 
 render(
   <Test>
-    Just a silly test
+    Test component
   </Test>,
   document.getElementById('App')
 );
