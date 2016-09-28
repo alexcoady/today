@@ -13,3 +13,5 @@ By Alex Coady
 ## Contributions
 
 If you'd like to help with this project, please get in touch with me here: *alex@coady.me*, from then onwards features will be merged into the `develop` branch via a pull request.
+
+> Today *was* a good day
