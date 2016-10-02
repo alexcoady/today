@@ -7,7 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --config tasks/webpack.client.config.js --content-base client",
     "validate": "webpack-validator tasks/webpack.client.config.js",
-    "webpack:client": "webpack --config tasks/webpack.client.config.js"
+    "webpack:client": "webpack --config tasks/webpack.client.config.js",
+    "build:server": "babel server/src/index.js -o server/build/index.js",
+    "babel-node": "babel-node",
+    "start:server": "nodemon --exec npm run babel-node -- server/src/index.js"
   },
   "repository": {
     "type": "git",
@@ -40,6 +43,7 @@
     "webpack-validator": "^2.2.7"
   },
   "dependencies": {
+    "express": "^4.14.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
