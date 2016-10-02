@@ -5,18 +5,11 @@ import { render } from 'react-dom';
 // App
 import style from './test.css';
 
-const Test = ({ children }) => {
+import login from './../../shared/login';
 
-  return (
-    <div className="whatever">
-      { children }
-    </div>
-  );
-};
+const { Login } = login.components;
 
 render(
-  <Test>
-    Test component
-  </Test>,
+  <Login />,
   document.getElementById('App')
 );
