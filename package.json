@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --config tasks/webpack.client.config.js --content-base client",
+    "start": "run-p start:*",
     "validate": "webpack-validator tasks/webpack.client.config.js",
     "webpack:client": "webpack --config tasks/webpack.client.config.js",
     "build:server": "babel server/src/index.js -o server/build/index.js",
     "babel-node": "babel-node",
+    "start:client": "webpack-dev-server --config tasks/webpack.client.config.js --content-base client",
     "start:server": "nodemon --exec npm run babel-node -- server/src/index.js"
   },
   "repository": {
