@@ -2,21 +2,26 @@ import express, { Router } from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
+import passport from 'passport';
 
 import jwt from 'jsonwebtoken';
-import { MONGODB, SECRET } from './config';
+import * as config from './config';
 import User from './users/model';
+
+import auth from './auth/router';
 
 const app = express();
 
 // config
 const PORT = process.env.PORT || 8080;
-mongoose.connect(MONGODB);
-app.set('superSecret', SECRET);
+mongoose.connect(config.MONGODB);
+app.set('superSecret', config.SECRET);
 
 // middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use(passport.initialize());
 
 // loggin
 app.use(morgan('dev'));
@@ -25,63 +30,9 @@ app.get('/', (req, res) => {
   return res.send(`The API is available at http://localhost:${PORT}/api`);
 });
 
-// app.get('/setup', (req, res) => {
-//
-//   let fakeUser = new User({
-//     name: 'Alex Coady',
-//     password: 'omgapassword',
-//     admin: true
-//   });
-//
-//   fakeUser.save(err => {
-//
-//     if (err) throw err;
-//
-//     console.log('fake user added successfully');
-//
-//     res.json({ success: true });
-//
-//   });
-// });
-
+app.use('/auth', auth);
 
 const api = Router();
-
-api.use((req, res, next) => {
-
-  const token = req.body.token || req.query.token || req.headers['x-access-token'];
-
-  if (!token) return res.status(403).send({
-    success: false,
-    message: 'No token provided'
-  });
-
-  jwt.verify(token, app.get('superSecret'), (err, decoded) => {
-
-    if (err)
-      return res.json({ success: false, message: 'Failed to authenticate token' });
-
-    console.log(decoded)
-    req.decoded = decoded;
-    next();
-  });
-});
-
-api.get('/', (req, res) => {
-
-  return res.json({ message: 'Welcome to the root of the today API' });
-});
-
-api.get('/users', (req, res) => {
-
-  User.find({}, (err, users) => {
-
-    if (err) throw err;
-
-    res.json(users);
-
-  });
-});
 
 api.post('/authenticate', (req, res) => {
 
@@ -104,6 +55,41 @@ api.post('/authenticate', (req, res) => {
       message: 'Have this token :)',
       token
     });
+
+  });
+});
+
+api.use((req, res, next) => {
+
+  const token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+  if (!token) return res.status(403).send({
+    success: false,
+    message: 'No token provided'
+  });
+
+  jwt.verify(token, app.get('superSecret'), (err, decoded) => {
+
+    if (err)
+      return res.json({ success: false, message: 'Failed to authenticate token' });
+
+    req.decoded = decoded;
+    next();
+  });
+});
+
+api.get('/', (req, res) => {
+
+  return res.json({ message: 'Welcome to the root of the today API' });
+});
+
+api.get('/users', (req, res) => {
+
+  User.find({}, (err, users) => {
+
+    if (err) throw err;
+
+    res.json(users);
 
   });
 });
