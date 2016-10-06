@@ -2,6 +2,8 @@ import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackConfigFn from './../../tasks/webpack.client.config.js';
 
+import fallback from 'express-history-api-fallback';
+
 import express, { Router } from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
@@ -21,11 +23,11 @@ const PROD = process.env.NODE_ENV || 'production';
 
 
 
-// WEBPACK
-const webpackConfig = webpackConfigFn();
-
 
 const app = express();
+
+// IF DEV
+const webpackConfig = webpackConfigFn();
 
 app.use(webpackDevMiddleware(webpack(webpackConfig), {
   noInfo: true,
@@ -34,6 +36,9 @@ app.use(webpackDevMiddleware(webpack(webpackConfig), {
   },
   publicPath: `/${webpackConfig.output.publicPath}`
 }));
+
+// ELSE IF PRODUCTION
+// TODO
 
 // config
 mongoose.connect(config.MONGODB);
@@ -115,6 +120,8 @@ api.get('/users', (req, res) => {
 });
 
 app.use('/api', api);
+
+app.use(fallback('index.html', { root: __dirname }));
 
 app.listen(PORT, () => {
   console.log(`server started, bitches PORT: ${PORT}`);
