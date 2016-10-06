@@ -7,6 +7,7 @@ module.exports = function () {
 
   return {
     entry: [
+      'webpack-hot-middleware/client?reload=true',
       path.resolve(__dirname, './../client/src/index.jsx')
     ],
     output: {
@@ -36,14 +37,10 @@ module.exports = function () {
             postcssCalc
           ]
         }
-      })
+      }),
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NoErrorsPlugin()
     ],
-    target: 'web',
-    devServer: {
-      port: 8082,
-      host: '0.0.0.0',
-      inline: true,
-      historyApiFallback: true
-    }
+    target: 'web'
   };
 }
