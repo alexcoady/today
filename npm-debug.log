@@ -11,7 +11,7 @@
 6 silly lifecycle today@0.0.1~prebabel-node: no script for prebabel-node, continuing
 7 info lifecycle today@0.0.1~babel-node: today@0.0.1
 8 verbose lifecycle today@0.0.1~babel-node: unsafe-perm in lifecycle true
-9 verbose lifecycle today@0.0.1~babel-node: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/alexcoady/Sites/today/node_modules/.bin:/usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/alexcoady/Sites/today/node_modules/.bin:/usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/alexcoady/Sites/today/node_modules/.bin:/Users/alexcoady/google-cloud-sdk/bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/alexcoady/.rvm/bin
+9 verbose lifecycle today@0.0.1~babel-node: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/alexcoady/Sites/today/node_modules/.bin:/usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/alexcoady/Sites/today/node_modules/.bin:/Users/alexcoady/google-cloud-sdk/bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/alexcoady/.rvm/bin
 10 verbose lifecycle today@0.0.1~babel-node: CWD: /Users/alexcoady/Sites/today
 11 silly lifecycle today@0.0.1~babel-node: Args: [ '-c', 'babel-node "server/src/index.js"' ]
 12 silly lifecycle today@0.0.1~babel-node: Returned: code: 1  signal: null
