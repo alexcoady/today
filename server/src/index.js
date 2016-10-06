@@ -3,11 +3,13 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import passport from 'passport';
-
 import jwt from 'jsonwebtoken';
+
 import * as config from './config';
+
 import User from './users/model';
 
+import * as authHelpers from './auth/helpers';
 import auth from './auth/router';
 
 const app = express();
@@ -46,9 +48,7 @@ api.post('/authenticate', (req, res) => {
     if (foundUser.password !== req.body.password)
       return res.json({ success: false, message: 'Authentication failed. Username and password did not match' });
 
-    const token = jwt.sign(foundUser, app.get('superSecret'), {
-      expiresIn: '1d'
-    });
+    const token = authHelpers.generateToken(foundUser, config.SECRET);
 
     res.json({
       success: true,
@@ -68,7 +68,7 @@ api.use((req, res, next) => {
     message: 'No token provided'
   });
 
-  jwt.verify(token, app.get('superSecret'), (err, decoded) => {
+  jwt.verify(token, config.SECRET, (err, decoded) => {
 
     if (err)
       return res.json({ success: false, message: 'Failed to authenticate token' });

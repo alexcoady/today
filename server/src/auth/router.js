@@ -5,6 +5,7 @@ import { Strategy as FacebookStrategy } from 'passport-facebook';
 
 import * as config from './../config';
 import User from './../users/model';
+import { generateToken } from './../auth/helpers';
 
 const mutateUser = (user, profile, token) => {
 
@@ -46,7 +47,7 @@ const authCallback = (req, token, refreshToken, profile, done) => {
   User.findOne(options, (err, user) => {
 
     // Top-level error
-    if (err) return done(err);
+    if (err) return done(err, false);
 
     // Create new user
     if (!user) {
@@ -66,7 +67,7 @@ const authCallback = (req, token, refreshToken, profile, done) => {
     mutateUser(user, profile, token);
 
     user.save(err => {
-      if (err) return done(err);
+      if (err) return done(err, false);
       return done(null, user);
     });
 
@@ -89,10 +90,17 @@ const auth = Router();
 
 auth.get('/facebook', passport.authenticate('facebook', { scope: ['email'] }));
 
-auth.get('/facebook/callback', passport.authenticate('facebook', {
-  session: false,
-  successRedirect: '/',
-  failureRedirect: '/failure'
-}));
+auth.get('/facebook/callback', (req, res, next) => {
+
+  passport.authenticate('facebook', (err, user, info) => {
+
+    console.log(`Authenticated with facebook`, err, user, info);
+    const token = generateToken(user, config.SECRET);
+    res.cookie('token', token);
+    res.redirect('/')
+
+  })(req, res, next);
+
+});
 
 export default auth;
