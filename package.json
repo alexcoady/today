@@ -5,9 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --config tasks/webpack.client.config.js --content-base client",
+    "start": "run-p start:*",
     "validate": "webpack-validator tasks/webpack.client.config.js",
-    "webpack:client": "webpack --config tasks/webpack.client.config.js"
+    "webpack:client": "webpack --config tasks/webpack.client.config.js",
+    "build:server": "babel server/src/index.js -o server/build/index.js",
+    "babel-node": "babel-node",
+    "start:server": "nodemon --exec npm run babel-node -- server/src/index.js"
   },
   "repository": {
     "type": "git",
@@ -28,6 +31,8 @@
     "babel-preset-react": "^6.16.0",
     "css-loader": "^0.25.0",
     "extract-text-webpack-plugin": "^2.0.0-beta.4",
+    "js-cookie": "^2.1.3",
+    "nodemon": "^1.11.0",
     "npm-run-all": "^3.1.0",
     "postcss-calc": "^5.3.1",
     "postcss-custom-media": "^5.0.1",
@@ -35,17 +40,27 @@
     "postcss-import": "^8.1.2",
     "postcss-loader": "^0.13.0",
     "postcss-nested": "^1.0.0",
-    "webpack": "^2.1.0-beta.25",
-    "webpack-dev-server": "^1.16.1",
-    "webpack-validator": "^2.2.7"
-  },
-  "dependencies": {
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
     "react-router": "^2.8.1",
     "react-router-redux": "^4.0.6",
     "redux-promise-middleware": "^4.0.0",
-    "reselect": "^2.5.4"
+    "reselect": "^2.5.4",
+    "webpack-validator": "^2.2.7"
+  },
+  "dependencies": {
+    "axios": "^0.14.0",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "express-history-api-fallback": "^2.0.0",
+    "jsonwebtoken": "^7.1.9",
+    "mongoose": "^4.6.2",
+    "morgan": "^1.7.0",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "webpack": "^2.1.0-beta.25",
+    "webpack-dev-middleware": "^1.8.3",
+    "webpack-hot-middleware": "^2.12.2"
   }
 }
