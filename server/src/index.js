@@ -1,5 +1,6 @@
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfigFn from './../../tasks/webpack.client.config.js';
 
 import fallback from 'express-history-api-fallback';
@@ -28,14 +29,17 @@ const app = express();
 
 // IF DEV
 const webpackConfig = webpackConfigFn();
+const compiler = webpack(webpackConfig);
 
-app.use(webpackDevMiddleware(webpack(webpackConfig), {
+app.use(webpackDevMiddleware(compiler, {
   noInfo: true,
   stats: {
     colors: true
   },
   publicPath: `/${webpackConfig.output.publicPath}`
 }));
+
+app.use(webpackHotMiddleware(compiler));
 
 // ELSE IF PRODUCTION
 // TODO

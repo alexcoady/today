@@ -10,6 +10,8 @@ import login from './../../shared/login';
 const { Login } = login.components;
 
 render(
-  <Login />,
+  <div>
+    <Login />
+  </div>,
   document.getElementById('App')
 );
