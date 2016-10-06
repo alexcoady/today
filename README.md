@@ -4,11 +4,13 @@ By Alex Coady
 
 ## Local development instructions
 
+- install [mongodb](https://docs.mongodb.com/manual/installation/)
+- `mongod` (Note: no *b*)
 - `clone` repo
 - `cd to/project/root`
 - `npm i`
 - `npm start`
-- Go to [http://localhost:8082](http://localhost:8082) in your browser :thumbsup:
+- Go to [http://localhost:8080](http://localhost:8080) in your browser :thumbsup:
 
 ## Contributions
 
