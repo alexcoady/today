@@ -42,7 +42,9 @@ const authCallback = (req, token, refreshToken, profile, done) => {
   const options = {};
 
   // Normalise profile ID into correct subobject
-  if (provider === 'facebook') options.facebook = { id: profile.id };
+  if (provider === 'facebook') options['facebook.id'] = profile.id;
+
+  console.log(`search for users that match`, options);
 
   User.findOne(options, (err, user) => {
 
@@ -59,6 +61,8 @@ const authCallback = (req, token, refreshToken, profile, done) => {
         return done(null, newUser);
       });
     }
+
+    console.log(`found`, user.name);
 
     // User is already authorised to use facebook
     if (user[provider].token) return done(null, user);
@@ -94,7 +98,6 @@ auth.get('/facebook/callback', (req, res, next) => {
 
   passport.authenticate('facebook', (err, user, info) => {
 
-    console.log(`Authenticated with facebook`, err, user, info);
     const token = generateToken(user, config.SECRET);
     res.cookie('token', token);
     res.redirect('/')

@@ -45,6 +45,7 @@ app.use(webpackHotMiddleware(compiler));
 // TODO
 
 // config
+mongoose.Promise = global.Promise;
 mongoose.connect(config.MONGODB);
 app.set('superSecret', config.SECRET);
 
@@ -56,10 +57,6 @@ app.use(passport.initialize());
 
 // logging
 app.use(morgan('dev'));
-
-app.get('/', (req, res) => {
-  return res.send(`The API is available at http://localhost:${PORT}/api`);
-});
 
 app.use('/auth', auth);
 
@@ -100,11 +97,30 @@ api.use((req, res, next) => {
   jwt.verify(token, config.SECRET, (err, decoded) => {
 
     if (err)
-      return res.json({ success: false, message: 'Failed to authenticate token' });
+      return res.status(401).json({ success: false, message: 'Failed to authenticate token' });
 
     req.decoded = decoded;
     next();
   });
+});
+
+api.use((req, res, next) => {
+
+  const id = req.decoded.id;
+  User.findById(id, (err, user) => {
+
+    if (err)
+      return res.status(500).json({ success: false, message: err });
+
+    if (!user)
+      return res.status(401).json({ success: false, message: 'User not found' });
+
+    console.log(`Welcome back, ${user.name}`);
+    req.user = user;
+    next();
+
+  });
+
 });
 
 api.get('/', (req, res) => {

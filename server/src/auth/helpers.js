@@ -7,7 +7,9 @@ import jwt from 'jsonwebtoken';
  *  @return {String} token
  */
 export const generateToken = (user, secret) => {
-  return jwt.sign(user, secret, {
+  return jwt.sign({
+    id: user._id
+  }, secret, {
     expiresIn: '1d'
   });
 };

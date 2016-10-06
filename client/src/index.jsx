@@ -7,11 +7,12 @@ import style from './test.css';
 
 import login from './../../shared/login';
 
-const { Login } = login.components;
+const { List, Login } = login.components;
 
 render(
   <div>
     <Login />
+    <List />
   </div>,
   document.getElementById('App')
 );
