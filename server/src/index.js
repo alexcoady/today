@@ -1,3 +1,7 @@
+import webpack from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackConfigFn from './../../tasks/webpack.client.config.js';
+
 import express, { Router } from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
@@ -12,10 +16,26 @@ import User from './users/model';
 import * as authHelpers from './auth/helpers';
 import auth from './auth/router';
 
+const PORT = process.env.PORT || 8080;
+const PROD = process.env.NODE_ENV || 'production';
+
+
+
+// WEBPACK
+const webpackConfig = webpackConfigFn();
+
+
 const app = express();
 
+app.use(webpackDevMiddleware(webpack(webpackConfig), {
+  noInfo: true,
+  stats: {
+    colors: true
+  },
+  publicPath: `/${webpackConfig.output.publicPath}`
+}));
+
 // config
-const PORT = process.env.PORT || 8080;
 mongoose.connect(config.MONGODB);
 app.set('superSecret', config.SECRET);
 
@@ -25,7 +45,7 @@ app.use(bodyParser.json());
 
 app.use(passport.initialize());
 
-// loggin
+// logging
 app.use(morgan('dev'));
 
 app.get('/', (req, res) => {

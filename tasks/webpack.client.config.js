@@ -38,12 +38,6 @@ module.exports = function () {
         }
       })
     ],
-    target: 'web',
-    devServer: {
-      port: 8082,
-      host: '0.0.0.0',
-      inline: true,
-      historyApiFallback: true
-    }
+    target: 'web'
   };
 }

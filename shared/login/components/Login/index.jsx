@@ -8,10 +8,10 @@ const Login = () => {
 
   return (
     <div className={style.root}>
-      <div classname={style.inner}>
+      <div className={style.inner}>
         <div>
-          <a href="#">Login with facebook</a>
-          <a href="#">Login with twitter</a>
+          <a href="/auth/facebook">Login with facebook</a>
+          <a href="/auth/twitter">Login with twitter</a>
         </div>
       </div>
     </div>
