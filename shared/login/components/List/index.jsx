@@ -14,7 +14,7 @@ class List extends React.Component {
 
     this.state = {
       users: [],
-      message: 'Loading users'
+      message: 'No authorisation token'
     };
   }
 
@@ -46,7 +46,8 @@ class List extends React.Component {
       })
       .then(response => {
         this.setState({
-          'users': response.data
+          'users': response.data,
+          'message': 'You\'re authorised :)'
         });
       })
       .catch(error => {
