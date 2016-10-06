@@ -10,7 +10,6 @@
     "webpack:client": "webpack --config tasks/webpack.client.config.js",
     "build:server": "babel server/src/index.js -o server/build/index.js",
     "babel-node": "babel-node",
-    "start:client": "webpack-dev-server --config tasks/webpack.client.config.js --content-base client",
     "start:server": "nodemon --exec npm run babel-node -- server/src/index.js"
   },
   "repository": {
