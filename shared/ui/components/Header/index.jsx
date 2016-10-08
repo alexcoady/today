@@ -12,7 +12,7 @@ class Header extends React.Component {
       <div className={style.root}>
         <div className={style.inner}>
           <div>Today</div>
-          <div>Log in / register</div>
+          <a href="/auth/facebook">Login / register with Facebook</a>
         </div>
       </div>
     );
