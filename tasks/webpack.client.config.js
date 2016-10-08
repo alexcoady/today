@@ -16,7 +16,10 @@ module.exports = function () {
       'publicPath': 'build/'
     },
     resolve: {
-      extensions: ['.js', '.jsx']
+      extensions: ['.js', '.jsx'],
+      alias: {
+        shared: path.resolve(__dirname, './../shared')
+      }
     },
     module: {
       loaders: [{
