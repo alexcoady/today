@@ -62,29 +62,6 @@ app.use('/auth', auth);
 
 const api = Router();
 
-api.post('/authenticate', (req, res) => {
-
-  User.findOne({ name: req.body.name }, (err, foundUser) => {
-
-    if (err) throw err;
-
-    if (!foundUser)
-      return res.json({ success: false, message: 'Authentication failed. User not found' });
-
-    if (foundUser.password !== req.body.password)
-      return res.json({ success: false, message: 'Authentication failed. Username and password did not match' });
-
-    const token = authHelpers.generateToken(foundUser, config.SECRET);
-
-    res.json({
-      success: true,
-      message: 'Have this token :)',
-      token
-    });
-
-  });
-});
-
 api.use((req, res, next) => {
 
   const token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -137,6 +114,10 @@ api.get('/users', (req, res) => {
     res.json(users);
 
   });
+});
+
+api.get('/user', (req, res) => {
+  res.json(req.user);
 });
 
 app.use('/api', api);

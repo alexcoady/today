@@ -15,12 +15,16 @@ class App extends React.Component {
 
   render () {
 
-    const { children } = this.props;
+    const {
+      account,
+      children,
+      isLoggedIn
+    } = this.props;
 
     return (
       <div className={style.root}>
         <div className={style.header}>
-          <Header />
+          <Header isLoggedIn={isLoggedIn} account={account} />
         </div>
         <div className={style.children}>
           {children}
@@ -42,7 +46,8 @@ class App extends React.Component {
 const mapState = () => {
 
   return createStructuredSelector({
-    account: user.selectors.getAccount
+    account: user.selectors.getAccount,
+    isLoggedIn: user.selectors.getIsLoggedIn
   });
 }
 
@@ -57,8 +62,10 @@ const mapDispatch = dispatch => {
 };
 
 App.propTypes = {
+  account: React.PropTypes.object.isRequired,
   children: React.PropTypes.object,
-  fetchAccount: React.PropTypes.func.isRequired
+  fetchAccount: React.PropTypes.func.isRequired,
+  isLoggedIn: React.PropTypes.bool.isRequired
 };
 
 export default connect(mapState, mapDispatch)(App);
