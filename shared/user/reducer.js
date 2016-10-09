@@ -27,7 +27,17 @@ const isAuthenticating = (state = false, action) => {
   return state;
 };
 
+const isAuthenticated = (state = false, { type, payload }) => {
+
+  if (type === `${t.FETCH_ACCOUNT}_FULFILLED`) {
+    return typeof payload.data._id !== undefined;
+  }
+
+  return state;
+};
+
 export default combineReducers({
   account,
-  isAuthenticating
+  isAuthenticating,
+  isAuthenticated
 });

@@ -14,7 +14,8 @@ const UserAuthenticated = UserAuthWrapper({
   authenticatingSelector: user.selectors.getIsAuthenticating,
   redirectActions: routerActions.replace,
   wrapperDisplayName: 'UserAuthenticated',
-  failureRedirectPath: '/'
+  failureRedirectPath: '/',
+  LoadingComponent: class Loading extends React.Component { render () { return (<div>Loading!!</div>); } }
 });
 
 export default (
