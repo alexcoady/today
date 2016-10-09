@@ -1,3 +1,4 @@
+/*global global, process*/
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
@@ -16,14 +17,10 @@ import * as config from './config';
 
 import User from './users/model';
 
-import * as authHelpers from './auth/helpers';
 import auth from './auth/router';
 
 const PORT = process.env.PORT || 8080;
-const PROD = process.env.NODE_ENV || 'production';
-
-
-
+// const PROD = process.env.NODE_ENV || 'production';
 
 const app = express();
 
@@ -117,6 +114,11 @@ api.get('/users', (req, res) => {
 });
 
 api.get('/user', (req, res) => {
+  res.json(req.user);
+});
+
+api.put('/user', (req, res) => {
+  console.log(req);
   res.json(req.user);
 });
 

@@ -16,6 +16,13 @@ module.exports = {
     }
   },
   "rules": {
-    "no-console": 1
+    "no-console": 0
+  },
+  "globals": {
+    "console": true,
+    "global": true,
+    "window": true,
+    "document": true,
+    "__dirname": true
   }
 };
