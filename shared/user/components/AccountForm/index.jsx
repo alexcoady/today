@@ -22,41 +22,6 @@ NameField.propTypes = {
   input: React.PropTypes.object.isRequired
 };
 
-const IDField = ({input}) => (
-  <div className={style.field}>
-    <p><label htmlFor="_id">_id</label></p>
-    <input {...input} id={input.name} type="text" />
-  </div>
-);
-IDField.propTypes = {
-  input: React.PropTypes.object.isRequired
-};
-
-const PasswordField = ({input}) => (
-  <div className={style.field}>
-    <p><label htmlFor="password">Password</label></p>
-    <input {...input} id={input.name} type="password" />
-  </div>
-);
-PasswordField.propTypes = {
-  input: React.PropTypes.object.isRequired
-};
-
-const LogValues = ({formValues}) => {
-
-  return (
-    <div>
-      <h2>Values:</h2>
-      <pre>
-        {JSON.stringify(formValues)}
-      </pre>
-    </div>
-  );
-}
-LogValues.propTypes = {
-  formValues: React.PropTypes.object
-}
-
 class AccountForm extends React.Component {
 
   render () {
@@ -77,11 +42,8 @@ class AccountForm extends React.Component {
     return (
       <div className={style.root}>
         <h1>Update your account</h1>
-        <LogValues formValues={formValues} />
         <form onSubmit={handleSubmit}>
           <Field name="name" component={NameField} />
-          <Field name="_id" component={IDField} />
-          <Field name="password" component={PasswordField} />
           <button type="submit" disabled={pristine || submitting}>Save</button>
           <button type="button" disabled={pristine || submitting} onClick={reset}>Cancel changes</button>
         </form>
