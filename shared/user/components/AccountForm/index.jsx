@@ -1,11 +1,13 @@
 // NPM
 import React from 'react';
+import cookie from 'react-cookie';
 import { createStructuredSelector } from 'reselect';
 import { Field, reduxForm, getFormValues } from 'redux-form';
 import { connect } from 'react-redux';
 
 // Feature
 import * as selectors from 'shared/user/selectors';
+import * as actions from 'shared/user/actions';
 
 // Component
 import style from './account-form.css';
@@ -59,11 +61,17 @@ class AccountForm extends React.Component {
 
   render () {
 
-    const { reset, pristine, submitting, formValues } = this.props;
+    const {
+      reset,
+      pristine,
+      submitting,
+      formValues,
+      putAccount
+    } = this.props;
 
     const handleSubmit = ev => {
       ev.preventDefault();
-      console.log(formValues);
+      putAccount(formValues)
     }
 
     return (
@@ -86,7 +94,8 @@ AccountForm.propTypes = {
   reset: React.PropTypes.func.isRequired,
   pristine: React.PropTypes.bool.isRequired,
   submitting: React.PropTypes.bool.isRequired,
-  formValues: React.PropTypes.object
+  formValues: React.PropTypes.object,
+  putAccount: React.PropTypes.func.isRequired
 };
 
 const mapState = () => {
@@ -97,6 +106,16 @@ const mapState = () => {
   });
 };
 
-export default connect(mapState)(reduxForm({
+const mapDispatch = dispatch => {
+
+  return {
+    putAccount: (data) => {
+      const token = cookie.load('token');
+      return dispatch(actions.putAccount(data, token)).catch(e => e);
+    }
+  };
+};
+
+export default connect(mapState, mapDispatch)(reduxForm({
   form: 'account'
 })(AccountForm));

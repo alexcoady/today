@@ -18,3 +18,18 @@ export const fetchAccount = (token) => {
     }
   };
 };
+
+export const putAccount = (data, token) => {
+
+  return {
+    type: t.PUT_ACCOUNT,
+    payload: {
+      promise: axios
+        .put('/api/user/', data, {
+          headers: {
+            'x-access-token': token
+          }
+        })
+    }
+  };
+};

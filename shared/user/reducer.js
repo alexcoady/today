@@ -8,6 +8,7 @@ const account = (state = {}, action) => {
 
   switch (action.type) {
     case `${t.FETCH_ACCOUNT}_FULFILLED`:
+    case `${t.PUT_ACCOUNT}_FULFILLED`:
       return action.payload.data;
   }
 

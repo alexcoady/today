@@ -118,8 +118,19 @@ api.get('/user', (req, res) => {
 });
 
 api.put('/user', (req, res) => {
-  console.log(req);
-  res.json(req.user);
+
+  const user = req.user;
+  const formUser = req.body;
+
+  if (formUser.name !== user.name) {
+    user.name = formUser.name;
+  }
+
+  user.save(err => {
+
+    if (err) throw err;
+    return res.json(req.user);
+  });
 });
 
 app.use('/api', api);
