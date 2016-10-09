@@ -1,3 +1,4 @@
+/*global global, process*/
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
@@ -16,14 +17,10 @@ import * as config from './config';
 
 import User from './users/model';
 
-import * as authHelpers from './auth/helpers';
 import auth from './auth/router';
 
 const PORT = process.env.PORT || 8080;
-const PROD = process.env.NODE_ENV || 'production';
-
-
-
+// const PROD = process.env.NODE_ENV || 'production';
 
 const app = express();
 
@@ -61,29 +58,6 @@ app.use(morgan('dev'));
 app.use('/auth', auth);
 
 const api = Router();
-
-api.post('/authenticate', (req, res) => {
-
-  User.findOne({ name: req.body.name }, (err, foundUser) => {
-
-    if (err) throw err;
-
-    if (!foundUser)
-      return res.json({ success: false, message: 'Authentication failed. User not found' });
-
-    if (foundUser.password !== req.body.password)
-      return res.json({ success: false, message: 'Authentication failed. Username and password did not match' });
-
-    const token = authHelpers.generateToken(foundUser, config.SECRET);
-
-    res.json({
-      success: true,
-      message: 'Have this token :)',
-      token
-    });
-
-  });
-});
 
 api.use((req, res, next) => {
 
@@ -136,6 +110,26 @@ api.get('/users', (req, res) => {
 
     res.json(users);
 
+  });
+});
+
+api.get('/user', (req, res) => {
+  res.json(req.user);
+});
+
+api.put('/user', (req, res) => {
+
+  const user = req.user;
+  const formUser = req.body;
+
+  if (formUser.name !== user.name) {
+    user.name = formUser.name;
+  }
+
+  user.save(err => {
+
+    if (err) throw err;
+    return res.json(req.user);
   });
 });
 
