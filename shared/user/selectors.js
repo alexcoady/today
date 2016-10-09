@@ -5,11 +5,14 @@ import { createSelector } from 'reselect';
 import * as constants from './constants';
 
 export const getAccount = state => {
-
   return state[constants.NAME].account;
 };
 
-export const getIsLoggedIn = createSelector(
+export const getIsAuthenticating = state => {
+  return state[constants.NAME].isAuthenticating;
+};
+
+export const getIsAuthenticated = createSelector(
   [getAccount],
   (account) => {
     return typeof account._id !== 'undefined';

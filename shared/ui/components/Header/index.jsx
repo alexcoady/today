@@ -25,9 +25,9 @@ class Header extends React.Component {
 
   render () {
 
-    const { isLoggedIn } = this.props;
+    const { isAuthenticated } = this.props;
 
-    const content = isLoggedIn
+    const content = isAuthenticated
       ? this.renderAuthenticatedContent()
       : this.renderUnauthenticatedContent();
 
@@ -44,7 +44,7 @@ class Header extends React.Component {
 
 Header.propTypes = {
   account: React.PropTypes.object.isRequired,
-  isLoggedIn: React.PropTypes.bool.isRequired
+  isAuthenticated: React.PropTypes.bool.isRequired
 };
 
 export default Header;
