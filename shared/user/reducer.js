@@ -34,6 +34,8 @@ const isAuthenticated = (state = false, { type, payload }) => {
     return typeof payload.data._id !== undefined;
   }
 
+  if (type === t.LOG_OUT) return false;
+
   return state;
 };
 

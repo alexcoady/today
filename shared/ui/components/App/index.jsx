@@ -18,13 +18,17 @@ class App extends React.Component {
     const {
       account,
       children,
-      isAuthenticated
+      isAuthenticated,
+      logOut
     } = this.props;
 
     return (
       <div className={style.root}>
         <div className={style.header}>
-          <Header isAuthenticated={isAuthenticated} account={account} />
+          <Header
+            isAuthenticated={isAuthenticated}
+            account={account}
+            logOut={logOut} />
         </div>
         <div className={style.children}>
           {children}
@@ -57,6 +61,10 @@ const mapDispatch = dispatch => {
     fetchAccount: () => {
       const token = cookie.load('token');
       return dispatch(user.actions.fetchAccount(token));
+    },
+    logOut: () => {
+      cookie.remove('token');
+      return dispatch(user.actions.logOut());
     }
   };
 };
@@ -65,6 +73,7 @@ App.propTypes = {
   account: React.PropTypes.object.isRequired,
   children: React.PropTypes.object,
   fetchAccount: React.PropTypes.func.isRequired,
+  logOut: React.PropTypes.func.isRequired,
   isAuthenticated: React.PropTypes.bool.isRequired
 };
 
