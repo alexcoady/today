@@ -10,6 +10,8 @@ const account = (state = {}, action) => {
     case `${t.FETCH_ACCOUNT}_FULFILLED`:
     case `${t.PUT_ACCOUNT}_FULFILLED`:
       return action.payload.data;
+    case `${t.LOG_OUT}`:
+      return {};
   }
 
   return state;
@@ -28,19 +30,7 @@ const isAuthenticating = (state = false, action) => {
   return state;
 };
 
-const isAuthenticated = (state = false, { type, payload }) => {
-
-  if (type === `${t.FETCH_ACCOUNT}_FULFILLED`) {
-    return typeof payload.data._id !== undefined;
-  }
-
-  if (type === t.LOG_OUT) return false;
-
-  return state;
-};
-
 export default combineReducers({
   account,
-  isAuthenticating,
-  isAuthenticated
+  isAuthenticating
 });

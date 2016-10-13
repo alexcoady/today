@@ -39,9 +39,9 @@ class App extends React.Component {
 
   componentWillMount () {
 
-    const { account } = this.props;
+    const { isAuthenticated } = this.props;
 
-    console.log(`App will mount`, account);
+    if (isAuthenticated) return;
 
     this.props.fetchAccount();
   }
