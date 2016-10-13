@@ -9,10 +9,13 @@ class Header extends React.Component {
 
   renderAuthenticatedContent () {
 
-    const { account } = this.props;
+    const { account, logOut } = this.props;
 
     return (
-      <Link to="/account">Hi, {account.name}!</Link>
+      <div>
+        <Link to="/account">Hi, {account.name}!</Link>
+        <a onClick={logOut}>Log out</a>
+      </div>
     );
   }
 
@@ -44,7 +47,8 @@ class Header extends React.Component {
 
 Header.propTypes = {
   account: React.PropTypes.object.isRequired,
-  isAuthenticated: React.PropTypes.bool.isRequired
+  isAuthenticated: React.PropTypes.bool.isRequired,
+  logOut: React.PropTypes.func.isRequired
 };
 
 export default Header;

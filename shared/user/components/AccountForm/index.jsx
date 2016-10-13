@@ -1,8 +1,9 @@
 // NPM
 import React from 'react';
 import cookie from 'react-cookie';
+import classnames from 'classnames/bind';
 import { createStructuredSelector } from 'reselect';
-import { Field, reduxForm, getFormValues } from 'redux-form';
+import { Field, Fields, reduxForm, getFormValues } from 'redux-form';
 import { connect } from 'react-redux';
 
 // Feature
@@ -11,15 +12,31 @@ import * as actions from 'shared/user/actions';
 
 // Component
 import style from './account-form.css';
+const cx = classnames.bind(style);
 
-const NameField = ({input}) => (
-  <div className={style.field}>
-    <p><label htmlFor="name">Name</label></p>
-    <input {...input} id={input.name} type="text" />
+const SettingFields = ({ settings: { daysPerWeek, weeksPerMonth, monthsPerYear } }) => (
+  <div>
+    <div className={cx('field')}>
+      <label htmlFor={daysPerWeek.input.name}>How many days make a good week?</label>
+      <input id={daysPerWeek.input.name} {...daysPerWeek.input} type="range" min={1} max={7} />
+      <span>{ daysPerWeek.input.value }</span>
+    </div>
+
+    <div className={cx('field')}>
+      <label htmlFor={weeksPerMonth.input.name}>How many weeks make a good month?</label>
+      <input id={weeksPerMonth.input.name} {...weeksPerMonth.input} type="range" min={1} max={4} />
+      <span>{ weeksPerMonth.input.value }</span>
+    </div>
+
+    <div className={cx('field')}>
+      <label htmlFor={monthsPerYear.input.name}>How many months make a good year?</label>
+      <input id={monthsPerYear.input.name} {...monthsPerYear.input} type="range" min={1} max={12} />
+      <span>{ monthsPerYear.input.value }</span>
+    </div>
   </div>
 );
-NameField.propTypes = {
-  input: React.PropTypes.object.isRequired
+SettingFields.propTypes = {
+  settings: React.PropTypes.object.isRequired
 };
 
 class AccountForm extends React.Component {
@@ -27,25 +44,37 @@ class AccountForm extends React.Component {
   render () {
 
     const {
-      reset,
+      handleSubmit,
       pristine,
       submitting,
       formValues,
       putAccount
     } = this.props;
 
-    const handleSubmit = ev => {
-      ev.preventDefault();
-      putAccount(formValues)
-    }
+    const submit = () => putAccount(formValues);
 
     return (
-      <div className={style.root}>
+      <div className={cx('root')}>
+
         <h1>Update your account</h1>
-        <form onSubmit={handleSubmit}>
-          <Field name="name" component={NameField} />
-          <button type="submit" disabled={pristine || submitting}>Save</button>
-          <button type="button" disabled={pristine || submitting} onClick={reset}>Cancel changes</button>
+
+        <form onSubmit={handleSubmit(submit)}>
+
+          <Field
+            name="name"
+            component="input"
+            type="text" />
+
+          <Fields
+            names={['settings.daysPerWeek', 'settings.weeksPerMonth', 'settings.monthsPerYear']}
+            component={SettingFields} />
+
+          <button
+            type="submit"
+            disabled={pristine || submitting}>
+            Save
+          </button>
+
         </form>
       </div>
     );
@@ -54,6 +83,7 @@ class AccountForm extends React.Component {
 
 AccountForm.propTypes = {
   reset: React.PropTypes.func.isRequired,
+  handleSubmit: React.PropTypes.func.isRequired,
   pristine: React.PropTypes.bool.isRequired,
   submitting: React.PropTypes.bool.isRequired,
   formValues: React.PropTypes.object,

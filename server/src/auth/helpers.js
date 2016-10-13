@@ -1,3 +1,4 @@
+// NPM depedencies
 import jwt from 'jsonwebtoken';
 
 /**

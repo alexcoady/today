@@ -33,3 +33,10 @@ export const putAccount = (data, token) => {
     }
   };
 };
+
+export const logOut = () => {
+
+  return {
+    type: t.LOG_OUT
+  };
+};
