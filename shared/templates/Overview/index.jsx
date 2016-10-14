@@ -1,6 +1,9 @@
 // NPM
 import React from 'react';
 
+// App
+import days from 'shared/days';
+
 // Component
 import style from './overview.css';
 
@@ -10,7 +13,9 @@ class Overview extends React.Component {
 
     return (
       <div className={style.root}>
-        Overview page
+        <div className={style.dayForm}>
+          <days.components.DayForm />
+        </div>
       </div>
     );
   }
