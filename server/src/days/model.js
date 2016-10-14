@@ -2,11 +2,12 @@
 import mongoose, { Schema } from 'mongoose';
 
 export const daySchema = new Schema({
-  date: Date,
-  status: {
+  _user: {
     type: Schema.Types.ObjectId,
-    ref: 'Status'
-  }
+    ref: 'User'
+  },
+  date: Date,
+  isGood: Boolean
 });
 
 const Day = mongoose.model('Day', daySchema);

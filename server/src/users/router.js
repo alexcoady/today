@@ -3,9 +3,14 @@ import { Router } from 'express';
 
 const router = Router();
 
-router.get('/', (req, res) => res.json(req.user));
+router.get('/', (req, res) => {
 
-router.put('/', (req, res) => {
+  res.json({
+    data: req.user
+  });
+});
+
+router.put('/', (req, res, next) => {
 
   if (req.user.settings !== req.body.settings)
     req.user.settings = {...req.user.settings, ...req.body.settings};
@@ -15,8 +20,11 @@ router.put('/', (req, res) => {
 
   req.user.save(err => {
 
-    if (err) throw err;
-    return res.json(req.user);
+    if (err) return next(err);
+
+    return res.json({
+      data: req.user
+    });
   });
 });
 

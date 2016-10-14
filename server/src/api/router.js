@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 // App dependencies
 import * as middleware from './middleware';
 import userApi from './../users/router';
+import daysApi from './../days/router';
 
 const api = Router();
 
@@ -17,5 +18,6 @@ api.use(middleware.populateUser);
 api.get('/', (req, res) => res.json({ message: 'API root' }));
 
 api.use('/user', userApi);
+api.use('/days', daysApi);
 
 export default api;
