@@ -3,7 +3,7 @@ import React from 'react';
 import cookie from 'react-cookie';
 import classnames from 'classnames/bind';
 import { createStructuredSelector } from 'reselect';
-import { Field, Fields, reduxForm, getFormValues } from 'redux-form';
+import { Field, FieldArray, Fields, reduxForm, getFormValues } from 'redux-form';
 import { connect } from 'react-redux';
 
 // Feature
@@ -39,6 +39,24 @@ SettingFields.propTypes = {
   settings: React.PropTypes.object.isRequired
 };
 
+const ThingFieldArray = ({ fields, formValues }) => (
+  <div>
+    <pre>
+      {JSON.stringify(fields)}
+    </pre>
+    {fields.map((thing, index) => {
+      console.log(thing, formValues);
+      return (
+        <Field key={index} name={thing} component="input" type="text" />
+      );
+    })}
+    <button type="button" onClick={() => {fields.push()}}>Add thing</button>
+  </div>
+);
+ThingFieldArray.propTypes = {
+  fields: React.PropTypes.object
+};
+
 class AccountForm extends React.Component {
 
   render () {
@@ -68,6 +86,8 @@ class AccountForm extends React.Component {
           <Fields
             names={['settings.daysPerWeek', 'settings.weeksPerMonth', 'settings.monthsPerYear']}
             component={SettingFields} />
+
+          <FieldArray name="things" component={ThingFieldArray} formValues={formValues} />
 
           <button
             type="submit"

@@ -12,6 +12,8 @@ router.get('/', (req, res) => {
 
 router.put('/', (req, res, next) => {
 
+  console.log(req.body.things);
+
   if (req.user.settings !== req.body.settings)
     req.user.settings = {...req.user.settings, ...req.body.settings};
 
