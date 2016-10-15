@@ -4,9 +4,11 @@ import { combineReducers } from 'redux';
 // Feature dependencies
 import * as t from './actionTypes';
 
-const days = (state = [], action) => {
+const all = (state = [], action) => {
 
   switch (action.type) {
+    case `${t.FETCH_ALL}_FULFILLED`:
+      return action.payload.data.data;
     case `${t.POST_DAY}_FULFILLED`:
       return [...state, action.payload.data.data];
   }
@@ -15,5 +17,5 @@ const days = (state = [], action) => {
 };
 
 export default combineReducers({
-  days
+  all
 });

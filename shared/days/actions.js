@@ -4,9 +4,22 @@ import axios from 'axios';
 // Feature dependencies
 import * as t from './actionTypes';
 
-export const postDay = (data, token) => {
+export const fetchAll = (token) => {
 
-  console.log('posting')
+  return {
+    type: t.FETCH_ALL,
+    payload: {
+      promise: axios
+        .get('/api/days/', {
+          headers: {
+            'x-access-token': token
+          }
+        })
+    }
+  };
+};
+
+export const postDay = (data, token) => {
 
   return {
     type: t.POST_DAY,

@@ -7,7 +7,10 @@ export const daySchema = new Schema({
     ref: 'User'
   },
   date: Date,
-  isGood: Boolean
+  isGood: {
+    type: Boolean,
+    default: false
+  }
 });
 
 const Day = mongoose.model('Day', daySchema);
