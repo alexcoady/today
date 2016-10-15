@@ -1,7 +1,10 @@
-// NPM
+// NPM dependencies
 import React from 'react';
 
-// Component
+// App dependencies
+import days from 'shared/days';
+
+// Component dependencies
 import style from './history.css';
 
 class History extends React.Component {
@@ -11,6 +14,10 @@ class History extends React.Component {
     return (
       <div className={style.root}>
         History page
+
+        <div>
+          <days.components.DayList />
+        </div>
       </div>
     );
   }
