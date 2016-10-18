@@ -39,22 +39,21 @@ SettingFields.propTypes = {
   settings: React.PropTypes.object.isRequired
 };
 
-const ThingFieldArray = ({ fields, formValues }) => (
+const ThingFieldArray = ({ fields }) => (
   <div>
-    <pre>
-      {JSON.stringify(fields)}
-    </pre>
     {fields.map((thing, index) => {
-      console.log(thing, formValues);
       return (
-        <Field key={index} name={thing} component="input" type="text" />
+        <div key={index}>
+          <Field name={`${thing}.name`} component="input" type="text" />
+        </div>
       );
     })}
     <button type="button" onClick={() => {fields.push()}}>Add thing</button>
   </div>
 );
 ThingFieldArray.propTypes = {
-  fields: React.PropTypes.object
+  fields: React.PropTypes.object,
+  formValues: React.PropTypes.object
 };
 
 class AccountForm extends React.Component {

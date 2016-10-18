@@ -4,6 +4,7 @@ import fallback from 'express-history-api-fallback';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import passport from 'passport';
+import Promise from 'bluebird';
 
 import * as config from './config';
 import * as webpack from './webpack';
@@ -24,7 +25,7 @@ app.use(webpack.hotMiddleware);
 // TODO
 
 // config
-mongoose.Promise = global.Promise;
+mongoose.Promise = Promise;
 mongoose.connect(config.MONGODB);
 app.set('superSecret', config.SECRET);
 

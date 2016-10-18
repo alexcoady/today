@@ -60,6 +60,7 @@
   },
   "dependencies": {
     "axios": "^0.14.0",
+    "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "express-history-api-fallback": "^2.0.0",
