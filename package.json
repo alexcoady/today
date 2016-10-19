@@ -4,7 +4,8 @@
   "description": "Was today a good day application",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --coverage",
+    "test:watch": "npm test -- --coverage --watch",
     "start": "run-p start:*",
     "validate": "webpack-validator tasks/webpack.client.config.js",
     "webpack:client": "webpack --config tasks/webpack.client.config.js",
