@@ -4,12 +4,20 @@ import { routerReducer } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form';
 
 // App dependencies
-import user from 'shared/user';
-import days from 'shared/days';
+import daysReducer from './days/reducer';
+import * as daysConstants from './days/constants';
+
+import thingsReducer from './things/reducer';
+import * as thingsConstants from './things/constants';
+
+import userReducer from './user/reducer';
+import * as userConstants from './user/constants';
+
 
 export default combineReducers({
   routing: routerReducer,
   form: formReducer,
-  [user.constants.NAME]: user.reducer,
-  [days.constants.NAME]: days.reducer
+  [daysConstants.NAME]: daysReducer,
+  [thingsConstants.NAME]: thingsReducer,
+  [userConstants.NAME]: userReducer
 });
