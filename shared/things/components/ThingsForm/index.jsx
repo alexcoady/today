@@ -14,7 +14,7 @@ const ThingFieldArray = ({ fields }) => (
     {fields.map((thing, index) => {
       return (
         <div key={index}>
-          <Field name={`${thing}.name`} component="input" type="text" placeholder="Thing name" />
+          <Field name={`${thing}.name`} component="input" type="text" />
           <Field name={`${thing}._id`} component="input" type="text" />
         </div>
       );
@@ -34,8 +34,11 @@ class ThingsForm extends React.Component {
     const {
       formValues,
       handleSubmit,
-      putThings
+      putThings,
+      hasFetchedAll
     } = this.props;
+
+    if (!hasFetchedAll) return null;
 
     const submit = () => {
       putThings(formValues);
@@ -54,37 +57,61 @@ class ThingsForm extends React.Component {
       </div>
     );
   }
+
+  componentWillMount () {
+
+    const {
+      fetchAll,
+      hasFetchedAll,
+      isFetchingAll
+    } = this.props;
+
+    if (hasFetchedAll || isFetchingAll) return;
+
+    fetchAll();
+  }
 }
 
 const getInitialValues = state => {
+
   return {
     things: selectors.getAll(state)
-  };
+  }
 };
 
 const mapState = () => {
   return createStructuredSelector({
     formValues: getFormValues('things-form'),
-    initialValues: getInitialValues
+    hasFetchedAll: selectors.getHasFetchedAll,
+    initialValues: getInitialValues,
+    isFetchingAll: selectors.getIsFetchingAll
   });
 };
 
 const mapDispatch = dispatch => {
 
+  const token = cookie.load('token');
+
   return {
     putThings: data => {
-      const token = cookie.load('token');
       return dispatch(actions.putThings(data, token));
+    },
+    fetchAll: () => {
+      return dispatch(actions.fetchAll(token));
     }
   };
 };
 
 ThingsForm.propTypes = {
+  fetchAll: React.PropTypes.func.isRequired,
   formValues: React.PropTypes.object,
+  hasFetchedAll: React.PropTypes.bool.isRequired,
   handleSubmit: React.PropTypes.func.isRequired,
+  isFetchingAll: React.PropTypes.bool.isRequired,
   putThings: React.PropTypes.func.isRequired
 };
 
 export default connect(mapState, mapDispatch)(reduxForm({
-  form: 'things-form'
+  form: 'things-form',
+  enableReinitialize: true
 })(ThingsForm));
