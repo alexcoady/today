@@ -21,8 +21,12 @@ const UserAuthenticated = UserAuthWrapper({
 export default (
   <Route path="/" name="app" component={ui.components.App}>
     <IndexRoute component={templates.Overview} />
-    <Route path="/account" component={UserAuthenticated(templates.Account)} />
-    <Route path="/history" component={UserAuthenticated(templates.History)} />
-    <Route path="/logged-out" component={templates.LoggedOut} />
+    <Route path="account">
+      <IndexRoute component={UserAuthenticated(templates.Account)}/>
+      <Route path="settings" component={UserAuthenticated(templates.Account)} />
+      <Route path="things" component={UserAuthenticated(templates.Things)} />
+    </Route>
+    <Route path="history" component={UserAuthenticated(templates.History)} />
+    <Route path="logged-out" component={templates.LoggedOut} />
   </Route>
 );

@@ -4,7 +4,8 @@
   "description": "Was today a good day application",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --coverage",
+    "test:watch": "npm test -- --coverage --watch",
     "start": "run-p start:*",
     "validate": "webpack-validator tasks/webpack.client.config.js",
     "webpack:client": "webpack --config tasks/webpack.client.config.js",
@@ -60,6 +61,7 @@
   },
   "dependencies": {
     "axios": "^0.14.0",
+    "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "express-history-api-fallback": "^2.0.0",

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
 export default mongoose.model('User', new mongoose.Schema({
   name: String,
@@ -22,5 +22,9 @@ export default mongoose.model('User', new mongoose.Schema({
       type: Number,
       default: 8
     }
-  }
+  },
+  things: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Thing'
+  }]
 }));
