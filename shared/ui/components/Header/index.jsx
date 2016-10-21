@@ -13,7 +13,9 @@ class Header extends React.Component {
 
     return (
       <div>
-        <Link to="/account">Hi, {account.name}!</Link>
+        <Link to="/account/settings">Hi, {account.name}!</Link>
+        <Link to="/history">History</Link>
+        <Link to="/account/things">Things</Link>
         <a onClick={logOut}>Log out</a>
       </div>
     );

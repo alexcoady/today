@@ -18,14 +18,16 @@ router.put('/', (req, res, next) => {
   if (req.user.name !== req.body.name)
     req.user.name = req.body.name;
 
-  req.user.save(err => {
-
-    if (err) return next(err);
-
-    return res.json({
-      data: req.user
+  req.user.save()
+  .then(user => {
+    res.json({
+      data: user
     });
+  })
+  .catch(err => {
+    next(err);
   });
+
 });
 
 export default router;
