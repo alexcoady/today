@@ -48,9 +48,6 @@ class ThingsForm extends React.Component {
       <div>
         <h1>Manage your good day things</h1>
         <form onSubmit={handleSubmit(submit)}>
-          <pre>
-            {JSON.stringify(formValues)}
-          </pre>
           <FieldArray component={ThingFieldArray} name="things" />
           <button type="submit">Save</button>
         </form>
