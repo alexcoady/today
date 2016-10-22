@@ -1,2 +1,50 @@
 @import 'vars';
 @import 'mixins';
+
+.field {
+  margin-bottom: 2rem;
+}
+
+.label {
+  display: block;
+  margin-bottom: .5rem;
+}
+
+.error {
+  display: block;
+  margin-bottom: .5rem;
+  color: var(--color-red-a200);
+  font-size: .9rem;
+}
+
+.text {
+  border: 2px solid black;
+  padding: .25rem;
+  font: inherit;
+}
+
+.radioGroup {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  > * {
+    flex-basis: 2rem;
+  }
+}
+
+.save {
+  padding: .5rem 1.5rem;
+  background: var(--color-green-a500);
+  color: var(--color-white);
+  text-transform: uppercase;
+
+  &:disabled {
+    background: var(--color-black-200);
+    color: var(--color-black-400);
+  }
+
+  &:not(:disabled) {
+    cursor: pointer;
+  }
+}
