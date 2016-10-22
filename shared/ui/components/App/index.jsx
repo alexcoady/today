@@ -4,6 +4,9 @@ import cookie from 'react-cookie';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
+import 'shared/style/reset.css';
+import 'shared/style/global.css';
+
 // App
 import Header from './../Header';
 import user from 'shared/user';

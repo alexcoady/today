@@ -1,0 +1,5 @@
+.app-max-width {
+  max-width: var(--width-app-max);
+  margin-right: auto;
+  margin-left: auto;
+}

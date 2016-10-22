@@ -1,7 +1,14 @@
+/* eslint-env node */
 var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+var postCSSImport = require('postcss-import');
+var postcssCustomProperties = require('postcss-custom-properties');
 var postcssCalc = require('postcss-calc');
+var postcssAutoprefixer = require('autoprefixer');
+var postcssNested = require('postcss-nested');
+var postcssCustomMedia = require('postcss-custom-media');
 
 module.exports = function () {
 
@@ -37,7 +44,12 @@ module.exports = function () {
         test: /\.css$/,
         options: {
           postcss: [
-            postcssCalc
+            postCSSImport({path: 'shared/style'}),
+            postcssAutoprefixer,
+            postcssCalc,
+            postcssCustomProperties,
+            postcssNested,
+            postcssCustomMedia
           ]
         }
       }),

@@ -1,0 +1,10 @@
+:root {
+  /* Colors */
+  --color-blue-500: #2196f3;
+
+  /* Typefaces */
+  --font-fam-sans: Futura;
+
+  /* Sizes */
+  --width-app-max: 90rem;
+}
