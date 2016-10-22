@@ -13,9 +13,13 @@ class Account extends React.Component {
 
     return (
       <div className={style.root}>
-        Account page
-        <div className={style.accountForm}>
-          <user.components.AccountForm />
+        <div className={style.inner}>
+          <h1 className={style.title}>
+            Update your account
+          </h1>
+          <div className={style.accountForm}>
+            <user.components.AccountForm />
+          </div>
         </div>
       </div>
     );

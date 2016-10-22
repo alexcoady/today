@@ -54,9 +54,7 @@ class AccountForm extends React.Component {
     const submit = () => putAccount(formValues);
 
     return (
-      <div className={cx('root')}>
-
-        <h1>Update your account</h1>
+      <div className={style.root}>
 
         <form onSubmit={handleSubmit(submit)}>
 

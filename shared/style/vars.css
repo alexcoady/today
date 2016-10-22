@@ -1,4 +1,8 @@
 :root {
+
+  /* Shades */
+  --color-white: #fff;
+
   /* Colors */
   --color-blue-500: #2196f3;
 
@@ -7,4 +11,5 @@
 
   /* Sizes */
   --width-app-max: 90rem;
+  --height-header-default: 75px;
 }

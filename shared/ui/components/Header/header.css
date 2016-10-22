@@ -13,3 +13,14 @@
   align-items: center;
   height: 75px;
 }
+
+.logo {
+  text-decoration: none;
+  color: var(--color-white);
+  text-transform: uppercase;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--color-white);
+}

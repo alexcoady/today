@@ -33,7 +33,7 @@ class App extends React.Component {
             account={account}
             logOut={logOut} />
         </div>
-        <div className={style.children}>
+        <div className={style.content}>
           {children}
         </div>
       </div>
