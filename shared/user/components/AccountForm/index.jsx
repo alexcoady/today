@@ -16,18 +16,36 @@ import RadioLabel from './components/RadioLabel';
 
 const cx = classnames.bind(style);
 
-const nameField = ({ input, label, type, meta: { error, warning } }) => (
+const NameField = ({ input, label, type, meta: { error, warning } }) => (
   <div className={cx('field', { isError: error, isWarning: warning })}>
     <label className={style.label} htmlFor={input.name}>{label}</label>
     {error && <span className={style.error}>{error}</span>}
     <input id={input.name} {...input} type={type} className={cx('text')} />
   </div>
 );
-nameField.propTypes = {
+
+NameField.propTypes = {
   input: React.PropTypes.object.isRequired,
   label: React.PropTypes.string.isRequired,
   type: React.PropTypes.string.isRequired,
   meta: React.PropTypes.object.isRequired
+};
+
+const RadioGroup = ({ input, label, values, meta: { warning } }) => (
+  <div className={style.field}>
+    <span className={style.label}>{label}</span>
+    {warning && <span className={style.warning}>{warning}</span>}
+    <div className={style.radioGroup}>
+      {values.map(val => <Field key={val} component={RadioLabel} val={val} name={input.name} />)}
+    </div>
+  </div>
+);
+
+RadioGroup.propTypes = {
+  input: React.PropTypes.object.isRequired,
+  label: React.PropTypes.string.isRequired,
+  meta: React.PropTypes.object.isRequired,
+  values: React.PropTypes.array.isRequired
 };
 
 class AccountForm extends React.Component {
@@ -50,37 +68,10 @@ class AccountForm extends React.Component {
 
         <form onSubmit={handleSubmit(submit)}>
 
-          <div className={style.field}>
-            {/*}<Field
-              id="name"
-              name="name"
-              component="input"
-              type="text"
-              className={style.text} />*/}
-
-            <Field name="name" component={nameField} label="Your name" type="text" />
-          </div>
-
-          <div className={style.field}>
-            <span className={style.label}>How many good days make a good week?</span>
-            <div className={style.radioGroup}>
-              {[1,2,3,4,5,6,7].map(val => <Field key={val} component={RadioLabel} name="settings.daysPerWeek" val={val} />)}
-            </div>
-          </div>
-
-          <div className={style.field}>
-            <span className={style.label}>How many good weeks make a good month?</span>
-            <div className={style.radioGroup}>
-              {[1,2,3,4].map(val => <Field key={val} component={RadioLabel} name="settings.weeksPerMonth" val={val} />)}
-            </div>
-          </div>
-
-          <div className={style.field}>
-            <span className={style.label}>How many good months make a good year?</span>
-            <div className={style.radioGroup}>
-              {[1,2,3,4,5,6,7,8,9,10,11,12].map(val => <Field key={val} component={RadioLabel} name="settings.monthsPerYear" val={val} />)}
-            </div>
-          </div>
+          <Field component={NameField} name="name" label="Your name" type="text" />
+          <Field component={RadioGroup} name="settings.daysPerWeek" label="How many good days make a good week?" values={[1,2,3,4,5,6,7]} />
+          <Field component={RadioGroup} name="settings.weeksPerMonth" label="How many good weeks make a good month?" values={[1,2,3,4]} />
+          <Field component={RadioGroup} name="settings.monthsPerYear" label="How many good months make a good year?" values={[1,2,3,4,5,6,7,8,9,10,11,12]} />
 
           <button className={style.save} type="submit" disabled={pristine || submitting || invalid}>
             Save
@@ -133,7 +124,20 @@ const warn = values => {
 
   const warnings = {};
 
-  console.log(values);
+  if (+values.settings.daysPerWeek <= 3) {
+    warnings.settings = warnings.settings || {};
+    warnings.settings.daysPerWeek = `You can do better than that!`;
+  }
+
+  if (+values.settings.weeksPerMonth <= 2) {
+    warnings.settings = warnings.settings || {};
+    warnings.settings.weeksPerMonth = `You're sure?`;
+  }
+
+  if (+values.settings.monthsPerYear <= 6) {
+    warnings.settings = warnings.settings || {};
+    warnings.settings.monthsPerYear = `That's kind of pessimistic!`;
+  }
 
   return warnings;
 };

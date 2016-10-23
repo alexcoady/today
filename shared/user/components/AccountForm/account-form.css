@@ -8,17 +8,28 @@
 .label {
   display: block;
   margin-bottom: .5rem;
+  line-height: 1.5;
+}
+
+.message {
+  display: block;
+  margin-bottom: .5rem;
+  font-size: .9rem;
 }
 
 .error {
-  display: block;
-  margin-bottom: .5rem;
+  composes: message;
   color: var(--color-red-a200);
-  font-size: .9rem;
+}
+
+.warning {
+  composes: message;
+  color: var(--color-orange-a200);
 }
 
 .text {
   border: 2px solid black;
+  width: 100%;
   padding: .25rem;
   font: inherit;
 }
