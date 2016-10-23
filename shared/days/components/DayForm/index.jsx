@@ -8,6 +8,11 @@ import { Field, reduxForm, getFormValues } from 'redux-form';
 
 // App dependencies
 import * as actions from './../../actions';
+import Loader from 'shared/ui/components/Loader'
+
+// Component dependencies
+import style from './day-form.css';
+import MainCTA from './components/MainCTA';
 
 class DayForm extends React.Component {
 
@@ -16,26 +21,24 @@ class DayForm extends React.Component {
     const {
       formValues,
       handleSubmit,
-      postDay
+      postDay,
+      submitting
     } = this.props;
 
     const submit = () => postDay(formValues);
 
+    if (!formValues) return <Loader />;
+
     return (
       <div>
         <form onSubmit={handleSubmit(submit)}>
-          <pre>
-            {JSON.stringify(formValues)}
-          </pre>
 
           <Field component="input" type="date" name="date" />
+          <Field component="input" type="checkbox" name="isGood" />
 
-          <label>
-            <Field component="input" type="checkbox" name="isGood" />
-            Was today a good day?
-          </label>
+          <MainCTA isGood={formValues.isGood} />
 
-          <button type="submit">Save</button>
+          <button className={style.save} type="submit" disabled={submitting}>Save</button>
         </form>
       </div>
     );
@@ -69,7 +72,8 @@ const mapDispatch = dispatch => {
 DayForm.propTypes = {
   formValues: React.PropTypes.object,
   handleSubmit: React.PropTypes.func.isRequired,
-  postDay: React.PropTypes.func.isRequired
+  postDay: React.PropTypes.func.isRequired,
+  submitting: React.PropTypes.bool.isRequired
 };
 
 export default connect(mapState, mapDispatch)(reduxForm({

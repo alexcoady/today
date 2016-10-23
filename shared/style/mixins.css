@@ -3,3 +3,19 @@
   margin-right: auto;
   margin-left: auto;
 }
+
+.button {
+  padding: .5rem 1.5rem;
+  background: var(--color-green-a500);
+  color: var(--color-white);
+  text-transform: uppercase;
+
+  &:disabled {
+    background: var(--color-black-200);
+    color: var(--color-black-400);
+  }
+
+  &:not(:disabled) {
+    cursor: pointer;
+  }
+}

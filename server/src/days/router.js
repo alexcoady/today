@@ -28,6 +28,9 @@ router.post('/', (req, res, next) => {
     isGood: req.body.isGood
   });
 
+  console.log(req.body);
+  return res.status(404);
+
   day.save(err => {
 
     if (err) return next(err);
