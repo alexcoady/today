@@ -6,15 +6,15 @@ import classnames from 'classnames/bind';
 import style from './main-cta.css';
 const cx = classnames.bind(style);
 
-const MainCTA = ({ input: { onBlur, onChange, value }, meta, meta: { touched } }) => (
+const MainCTA = ({ input: { onBlur, onChange, value }, meta: { touched } }) => (
   <div className={style.root}>
     <div className={style.inner}>
-      <div onClick={() => { onChange(true); onBlur(); }} className={cx('buttonYes', { isActive: value, isTouched: touched })}>
+      <div onClick={() => { onChange(true); onBlur(true); }} className={cx('buttonYes', { isActive: value, isTouched: touched })}>
         <div className={style.buttonInner}>
           <span className={style.title}>Yes</span>
         </div>
       </div>
-      <div onClick={() => { onChange(false); onBlur(); }} className={cx('buttonNo', { isActive: !value, isTouched: touched })}>
+      <div onClick={() => { onChange(false); onBlur(false); }} className={cx('buttonNo', { isActive: !value, isTouched: touched })}>
         <div className={style.buttonInner}>
           <span className={style.title}>No</span>
         </div>

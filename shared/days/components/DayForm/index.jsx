@@ -33,9 +33,11 @@ class DayForm extends React.Component {
       <div>
         <form onSubmit={handleSubmit(submit)}>
 
-          <Field component="input" type="date" name="date" />
+          <Field className={style.date} component="input" type="hidden" name="date" />
 
-          <Field component={MainCTA} name="isGood" />
+          <div className={style.field}>
+            <Field component={MainCTA} name="isGood" />
+          </div>
 
           <button className={style.save} type="submit" disabled={submitting}>Save</button>
         </form>

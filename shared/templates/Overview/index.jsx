@@ -13,8 +13,11 @@ class Overview extends React.Component {
 
     return (
       <div className={style.root}>
-        <div className={style.dayForm}>
-          <days.components.DayForm />
+        <div className={style.inner}>
+          <h1 className={style.title}>Was today a good day?</h1>
+          <div className={style.dayForm}>
+            <days.components.DayForm />
+          </div>
         </div>
       </div>
     );
