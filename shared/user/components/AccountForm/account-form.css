@@ -1,37 +1,25 @@
 @import 'vars';
 @import 'mixins';
+@import 'form';
 
 .field {
-  margin-bottom: 2rem;
+  composes: standard-field;
 }
 
 .label {
-  display: block;
-  margin-bottom: .5rem;
-  line-height: 1.5;
-}
-
-.message {
-  display: block;
-  margin-bottom: .5rem;
-  font-size: .9rem;
+  composes: standard-label;
 }
 
 .error {
-  composes: message;
-  color: var(--color-red-a200);
+  composes: standard-error;
 }
 
 .warning {
-  composes: message;
-  color: var(--color-orange-a200);
+  composes: standard-warning;
 }
 
 .text {
-  border: 2px solid black;
-  width: 100%;
-  padding: .25rem;
-  font: inherit;
+  composes: standard-text;
 }
 
 .radioGroup {
@@ -45,5 +33,5 @@
 }
 
 .save {
-  composes: button;
+  composes: button-save;
 }
