@@ -1,4 +1,26 @@
+@import 'vars';
+@import 'mixins';
+
+.root {
+  background: var(--color-blue-500);
+  padding: 0 1rem;
+}
+
 .inner {
+  composes: app-max-width;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  height: var(--height-header-default);
+}
+
+.logo {
+  text-decoration: none;
+  color: var(--color-white);
+  text-transform: uppercase;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--color-white);
 }

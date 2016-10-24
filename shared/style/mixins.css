@@ -1,0 +1,35 @@
+.app-max-width {
+  max-width: var(--width-app-max);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.button {
+  padding: .5rem 1.5rem;
+  text-transform: uppercase;
+
+  &:disabled {
+    background: var(--color-black-200);
+    color: var(--color-black-400);
+  }
+
+  &:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+.button-default {
+  composes: button;
+  background: var(--color-blue-500);
+  color: var(--color-white);
+}
+
+.button-save {
+  composes: button;
+  background: var(--color-green-a500);
+  color: var(--color-white);
+}
+
+.buttonGroup {
+  margin-bottom: 2rem;
+}

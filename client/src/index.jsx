@@ -11,10 +11,6 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import reduxFreeze from 'redux-freeze';
 import promiseMiddleware from 'redux-promise-middleware';
 
-// App
-import './reset.css';
-import './root.css';
-
 import reducer from 'shared/reducer';
 import routes from 'shared/routes';
 

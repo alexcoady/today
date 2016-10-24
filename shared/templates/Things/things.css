@@ -1,0 +1,15 @@
+@import 'vars';
+@import 'mixins';
+
+.root {
+  padding: 2rem 1rem;
+}
+
+.inner {
+  composes: app-max-width;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
