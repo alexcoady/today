@@ -9,13 +9,18 @@
 .button {
 
   flex-basis: 150px;
-  margin: 0 1rem;
+  margin: 0 .5rem;
   position: relative;
+  border-radius: 50%;
 
   &:before {
     padding-top: 100%;
     display: block;
     content: '';
+  }
+
+  &.isTouched:not(.isActive) {
+    opacity: .5;
   }
 }
 

@@ -22,7 +22,7 @@ class DayForm extends React.Component {
       formValues,
       handleSubmit,
       postDay,
-      submitting
+      submitting,
     } = this.props;
 
     const submit = () => postDay(formValues);
@@ -34,9 +34,8 @@ class DayForm extends React.Component {
         <form onSubmit={handleSubmit(submit)}>
 
           <Field component="input" type="date" name="date" />
-          <Field component="input" type="checkbox" name="isGood" />
 
-          <MainCTA isGood={formValues.isGood} />
+          <Field component={MainCTA} name="isGood" />
 
           <button className={style.save} type="submit" disabled={submitting}>Save</button>
         </form>

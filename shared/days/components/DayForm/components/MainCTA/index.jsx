@@ -6,15 +6,15 @@ import classnames from 'classnames/bind';
 import style from './main-cta.css';
 const cx = classnames.bind(style);
 
-const MainCTA = ({ isGood }) => (
+const MainCTA = ({ input: { onBlur, onChange, value }, meta, meta: { touched } }) => (
   <div className={style.root}>
     <div className={style.inner}>
-      <div className={cx('buttonYes', { isActive: isGood })}>
+      <div onClick={() => { onChange(true); onBlur(); }} className={cx('buttonYes', { isActive: value, isTouched: touched })}>
         <div className={style.buttonInner}>
           <span className={style.title}>Yes</span>
         </div>
       </div>
-      <div className={cx('buttonNo', { isActive: !isGood })}>
+      <div onClick={() => { onChange(false); onBlur(); }} className={cx('buttonNo', { isActive: !value, isTouched: touched })}>
         <div className={style.buttonInner}>
           <span className={style.title}>No</span>
         </div>
@@ -24,7 +24,8 @@ const MainCTA = ({ isGood }) => (
 );
 
 MainCTA.propTypes = {
-  isGood: React.PropTypes.bool
+  input: React.PropTypes.object.isRequired,
+  meta: React.PropTypes.object.isRequired
 };
 
 export default MainCTA;
