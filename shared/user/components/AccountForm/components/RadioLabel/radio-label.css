@@ -1,0 +1,18 @@
+@import 'vars';
+
+.root {}
+
+.label,
+.radio {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.radio {
+  /*display: inline-block;*/
+}
+
+.label {
+  /*display: inline-block;*/
+  margin-left: .25rem;
+}

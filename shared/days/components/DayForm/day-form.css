@@ -1,0 +1,21 @@
+@import 'vars';
+@import 'mixins';
+
+.field {
+  display: block;
+  margin-bottom: 2rem;
+}
+
+.date {
+  font: inherit;
+  font-size: 1rem;
+  color: var(--color-black-400);
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  border: 2px solid var(--color-black-400);
+}
+
+.save {
+  composes: button;
+}

@@ -1,0 +1,21 @@
+:root {
+
+  /* Shades */
+  --color-white:        #fff;
+  --color-black-200:    #EEEEEE;
+  --color-black-400:    #BDBDBD;
+  --color-black:        #000;
+
+  /* Colors */
+  --color-blue-500:     #2196f3;
+  --color-green-a500:   #00E676;
+  --color-red-a200:     #FF5252;
+  --color-orange-a200:  #FFAB40;
+
+  /* Typefaces */
+  --font-fam-sans: Futura;
+
+  /* Sizes */
+  --width-app-max: 90rem;
+  --height-header-default: 50px;
+}

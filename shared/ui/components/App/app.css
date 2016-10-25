@@ -1,0 +1,6 @@
+@import 'vars';
+
+.content {
+  position: relative;
+  min-height: calc(100vh - var(--height-header-default));
+}

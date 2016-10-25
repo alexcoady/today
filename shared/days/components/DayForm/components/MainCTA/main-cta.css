@@ -1,0 +1,50 @@
+@import 'vars';
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+
+  flex-basis: 150px;
+  margin: 0 .5rem;
+  position: relative;
+  border-radius: 50%;
+
+  &:before {
+    padding-top: 100%;
+    display: block;
+    content: '';
+  }
+
+  &.isTouched:not(.isActive) {
+    opacity: .5;
+  }
+}
+
+.buttonYes {
+  composes: button;
+  background: var(--color-green-a500;)
+}
+
+.buttonNo {
+  composes: button;
+  background: var(--color-orange-a200);
+}
+
+.buttonInner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  color: var(--color-white);
+}

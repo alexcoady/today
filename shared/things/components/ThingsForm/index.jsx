@@ -9,17 +9,22 @@ import { Field, FieldArray, reduxForm, getFormValues } from 'redux-form';
 import * as actions from './../../actions';
 import * as selectors from './../../selectors';
 
+// Component dependencies
+import style from './things-form.css';
+
 const ThingFieldArray = ({ fields }) => (
   <div>
     {fields.map((thing, index) => {
       return (
-        <div key={index}>
-          <Field name={`${thing}.name`} component="input" type="text" />
-          <Field name={`${thing}._id`} component="input" type="text" />
+        <div className={style.field} key={index}>
+          <Field className={style.text} name={`${thing}.name`} component="input" type="text" />
+          <Field name={`${thing}._id`} component="input" type="hidden" />
         </div>
       );
     })}
-    <button type="button" onClick={() => {fields.push()}}>Add thing</button>
+    <div className={style.buttonGroup}>
+      <button className={style.add} type="button" onClick={() => {fields.push()}}>Add thing</button>
+    </div>
   </div>
 );
 ThingFieldArray.propTypes = {
@@ -45,11 +50,10 @@ class ThingsForm extends React.Component {
     };
 
     return (
-      <div>
-        <h1>Manage your good day things</h1>
+      <div className={style.root}>
         <form onSubmit={handleSubmit(submit)}>
           <FieldArray component={ThingFieldArray} name="things" />
-          <button type="submit">Save</button>
+          <button className={style.save} type="submit">Save</button>
         </form>
       </div>
     );

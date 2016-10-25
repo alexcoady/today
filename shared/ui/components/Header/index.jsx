@@ -1,22 +1,30 @@
-// NPM
+// NPM dependencies
 import React from 'react';
 import { Link } from 'react-router';
 
-// Component
+// Component dependencies
 import style from './header.css';
 
 class Header extends React.Component {
 
   renderAuthenticatedContent () {
 
-    const { account, logOut } = this.props;
+    const { account } = this.props;
 
     return (
       <div>
-        <Link to="/account/settings">Hi, {account.name}!</Link>
+        <Link className={style.link} to="/account/settings">{account.name}</Link>
+      </div>
+    );
+  }
+
+  renderOptions () {
+
+    return (
+      <div>
         <Link to="/history">History</Link>
         <Link to="/account/things">Things</Link>
-        <a onClick={logOut}>Log out</a>
+        <a onClick={this.props.logOut}>Log out</a>
       </div>
     );
   }
@@ -39,7 +47,7 @@ class Header extends React.Component {
     return (
       <div className={style.root}>
         <div className={style.inner}>
-          <Link to="/">Today</Link>
+          <Link className={style.logo} to="/">Today</Link>
           {content}
         </div>
       </div>

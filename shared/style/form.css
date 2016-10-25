@@ -1,0 +1,32 @@
+.standard-field {
+  margin-bottom: 2rem;
+}
+
+.standard-label {
+  display: block;
+  margin-bottom: .5rem;
+  line-height: 1.5;
+}
+
+.standard-message {
+  display: block;
+  margin-bottom: .5rem;
+  font-size: .9rem;
+}
+
+.standard-error {
+  composes: standard-message;
+  color: var(--color-red-a200);
+}
+
+.standard-warning {
+  composes: standard-message;
+  color: var(--color-orange-a200);
+}
+
+.standard-text {
+  border: 2px solid black;
+  width: 100%;
+  padding: .25rem;
+  font: inherit;
+}

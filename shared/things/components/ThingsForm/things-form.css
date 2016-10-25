@@ -1,0 +1,19 @@
+@import 'vars';
+@import 'mixins';
+@import 'form';
+
+.field {
+  composes: standard-field;
+}
+
+.text {
+  composes: standard-text;
+}
+
+.add {
+  composes: button-default;
+}
+
+.save {
+  composes: button-save;
+}
