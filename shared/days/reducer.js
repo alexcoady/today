@@ -4,6 +4,9 @@ import _reduce from 'lodash/reduce';
 import _uniq from 'lodash/uniq';
 import { combineReducers } from 'redux';
 
+// App dependencies
+import { isFetching, hasFetched } from 'shared/reducerFactory';
+
 // Feature dependencies
 import * as t from './actionTypes';
 
@@ -37,5 +40,7 @@ const byDate = (state = {}, { type, payload }) => {
 
 export default combineReducers({
   all,
-  byDate
+  byDate,
+  isFetchingAll: isFetching(t.FETCH_ALL),
+  hasFetchedAll: hasFetched(t.FETCH_ALL)
 });

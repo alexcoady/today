@@ -2,6 +2,8 @@
 import React from 'react';
 import cookie from 'react-cookie';
 import dateformat from 'dateformat';
+import _find from 'lodash/find';
+import _isDate from 'lodash/isDate';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Field, reduxForm, getFormValues } from 'redux-form';
@@ -46,7 +48,28 @@ class DayForm extends React.Component {
   }
 }
 
-const getInitialValues = () => {
+const datesSame = (date1, date2) => {
+
+  console.log(date1, date2)
+
+  let d1 = _isDate(date1) ? date1 : new Date(date1);
+  let d2 = _isDate(date2) ? date2 : new Date(date2);
+
+  if (!_isDate(d1) || !_isDate(d2)) return false;
+
+  return d1.getDate() === d2.getDate()
+    && d1.getMonth() === d2.getMonth()
+    && d1.getFullYear() === d2.getFullYear() ? true : false;
+};
+
+const getInitialValues = (state, props) => {
+
+  const today = Date.now();
+  const day = _find(props.days, day => {
+    return datesSame(day.date, today)
+  });
+
+  console.log(day);
 
   return {
     date: dateformat(Date.now(), 'yyyy-mm-dd')
@@ -71,6 +94,7 @@ const mapDispatch = dispatch => {
 }
 
 DayForm.propTypes = {
+  days: React.PropTypes.array.isRequired,
   formValues: React.PropTypes.object,
   handleSubmit: React.PropTypes.func.isRequired,
   postDay: React.PropTypes.func.isRequired,
