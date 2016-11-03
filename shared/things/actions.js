@@ -19,17 +19,27 @@ export const fetchAll = (token) => {
   };
 };
 
-export const putThings = (data, token) => {
+export const postThing = thing => {
 
   return {
-    type: t.PUT_THINGS,
+    type: t.POST_THING,
     payload: {
-      promise: axios
-        .put('/api/things/', data, {
-          headers: {
-            'x-access-token': token
-          }
-        })
+      promise: axios.post('/api/things/', thing)
     }
   };
 };
+
+// export const putThings = (data, token) => {
+//
+//   return {
+//     type: t.PUT_THINGS,
+//     payload: {
+//       promise: axios
+//         .put('/api/things/', data, {
+//           headers: {
+//             'x-access-token': token
+//           }
+//         })
+//     }
+//   };
+// };
