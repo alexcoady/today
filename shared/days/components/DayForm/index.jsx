@@ -2,7 +2,7 @@
 import React from 'react';
 import cookie from 'react-cookie';
 import dateformat from 'dateformat';
-import _find from 'lodash/find';
+import _findLast from 'lodash/findLast';
 import _isDate from 'lodash/isDate';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -62,14 +62,7 @@ const datesSame = (date1, date2) => {
     && d1.getFullYear() === d2.getFullYear() ? true : false;
 };
 
-const getInitialValues = (state, props) => {
-
-  const today = Date.now();
-  const day = _find(props.days, day => {
-    return datesSame(day.date, today)
-  });
-
-  console.log(day);
+const getInitialValues = () => {
 
   return {
     date: dateformat(Date.now(), 'yyyy-mm-dd')
