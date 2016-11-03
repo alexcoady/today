@@ -10,6 +10,7 @@ import * as selectors from 'shared/things/selectors';
 
 // Component dependencies
 import style from './thing-list.css';
+import ThingItem from './../ThingItem';
 
 const cx = classnames.bind(style);
 
@@ -21,7 +22,7 @@ class ThingList extends React.Component {
       <div className={style.root}>
         <ul>
           { this.props.things.map(thing => {
-            return <li key={thing._id}>{thing.name}</li>
+            return <ThingItem key={thing._id} thing={thing} />
           }) }
         </ul>
       </div>
