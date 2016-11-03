@@ -25,24 +25,37 @@ router.get('/', (req, res) => {
   })
 });
 
-router.put('/', (req, res, next) => {
+router.post('/', (req, res, next) => {
 
-  const newThings = _.filter(req.body.things, thing => !thing._id);
-
-  console.log('all', req.body.things);
-  console.log('new', newThings);
-
-  Thing.insertMany(_.map(newThings, thing => {
-    return {...thing, _user: req.user.id};
-  }))
-  .then(things => {
+  Thing.create(req.body.thing)
+  .then(thing => {
     res.json({
-      data: things
+      data: thing
     })
   })
   .catch(err => {
     next(err);
   });
 });
+
+// router.put('/', (req, res, next) => {
+//
+//   const newThings = _.filter(req.body.things, thing => !thing._id);
+//
+//   console.log('all', req.body.things);
+//   console.log('new', newThings);
+//
+//   Thing.insertMany(_.map(newThings, thing => {
+//     return {...thing, _user: req.user.id};
+//   }))
+//   .then(things => {
+//     res.json({
+//       data: things
+//     })
+//   })
+//   .catch(err => {
+//     next(err);
+//   });
+// });
 
 export default router;
