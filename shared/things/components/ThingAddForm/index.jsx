@@ -9,7 +9,7 @@ import { Field, reduxForm, getFormValues } from 'redux-form';
 import * as actions from 'shared/things/actions';
 
 // Component dependencies
-import style from './add-thing-form.css';
+import style from './thing-add-form.css';
 
 const cx = classnames.bind(style);
 
@@ -60,7 +60,7 @@ class AddThingForm extends React.Component {
 
 const mapState = () => {
   return createStructuredSelector({
-    formValues: getFormValues('add-thing-form')
+    formValues: getFormValues('thing-add-form')
   });
 };
 
@@ -82,5 +82,5 @@ AddThingForm.propTypes = {
 };
 
 export default connect(mapState, mapDispatch)(reduxForm({
-  form: 'add-thing-form'
+  form: 'thing-add-form'
 })(AddThingForm));

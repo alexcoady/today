@@ -14,8 +14,8 @@ class Things extends React.Component {
     return (
       <div className={style.root}>
         <h1 className={style.title}>Manage your things</h1>
-        <div className={style.thingsForm}>
-          <things.components.ThingsForm />
+        <div className={style.thingList}>
+          <things.components.ThingList />
         </div>
       </div>
     );
