@@ -1,6 +1,5 @@
 // NPM dependencies
 import React from 'react';
-import cookie from 'react-cookie';
 import dateformat from 'dateformat';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -64,8 +63,7 @@ const mapDispatch = dispatch => {
 
   return {
     postDay: data => {
-      const token = cookie.load('token');
-      return dispatch(actions.postDay(data, token));
+      return dispatch(actions.postDay(data));
     }
   };
 }

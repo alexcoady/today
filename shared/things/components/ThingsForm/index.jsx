@@ -1,6 +1,5 @@
 // NPM dependencies
 import React from 'react';
-import cookie from 'react-cookie';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Field, FieldArray, reduxForm, getFormValues } from 'redux-form';

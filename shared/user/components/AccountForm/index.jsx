@@ -1,6 +1,5 @@
 // NPM
 import React from 'react';
-import cookie from 'react-cookie';
 import classnames from 'classnames/bind';
 import { createStructuredSelector } from 'reselect';
 import { Field, reduxForm, getFormValues } from 'redux-form';
@@ -105,8 +104,7 @@ const mapDispatch = dispatch => {
 
   return {
     putAccount: (data) => {
-      const token = cookie.load('token');
-      return dispatch(actions.putAccount(data, token)).catch(e => e);
+      return dispatch(actions.putAccount(data)).catch(e => e);
     }
   };
 };

@@ -4,17 +4,12 @@ import axios from 'axios';
 // Feature dependencies
 import * as t from './actionTypes';
 
-export const fetchAll = (token) => {
+export const fetchAll = () => {
 
   return {
     type: t.FETCH_ALL,
     payload: {
-      promise: axios
-        .get('/api/things/', {
-          headers: {
-            'x-access-token': token
-          }
-        })
+      promise: axios.get('/api/things/')
     }
   };
 };
@@ -29,17 +24,13 @@ export const postThing = thing => {
   };
 };
 
-// export const putThings = (data, token) => {
+// export const putThings = (data) => {
 //
 //   return {
 //     type: t.PUT_THINGS,
 //     payload: {
 //       promise: axios
-//         .put('/api/things/', data, {
-//           headers: {
-//             'x-access-token': token
-//           }
-//         })
+//         .put('/api/things/', data)
 //     }
 //   };
 // };
