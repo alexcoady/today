@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res, next) => {
 
-  Thing.create(req.body.thing)
+  Thing.create({...req.body, _user: req.user.id})
   .then(thing => {
     res.json({
       data: thing
