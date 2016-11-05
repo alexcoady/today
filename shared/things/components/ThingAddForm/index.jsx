@@ -5,9 +5,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Field, reduxForm, getFormValues } from 'redux-form';
 
-// App dependencies
-import * as actions from 'shared/things/actions';
-
 // Component dependencies
 import style from './thing-add-form.css';
 
@@ -64,15 +61,6 @@ const mapState = () => {
   });
 };
 
-const mapDispatch = dispatch => {
-
-  return {
-    postThing: thing => {
-      return dispatch(actions.postThing(thing));
-    }
-  };
-};
-
 AddThingForm.propTypes = {
   formValues: React.PropTypes.object,
   handleSubmit: React.PropTypes.func.isRequired,
@@ -81,6 +69,6 @@ AddThingForm.propTypes = {
   submitting: React.PropTypes.bool.isRequired
 };
 
-export default connect(mapState, mapDispatch)(reduxForm({
+export default connect(mapState)(reduxForm({
   form: 'thing-add-form'
 })(AddThingForm));

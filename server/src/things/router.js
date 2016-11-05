@@ -38,24 +38,4 @@ router.post('/', (req, res, next) => {
   });
 });
 
-// router.put('/', (req, res, next) => {
-//
-//   const newThings = _.filter(req.body.things, thing => !thing._id);
-//
-//   console.log('all', req.body.things);
-//   console.log('new', newThings);
-//
-//   Thing.insertMany(_.map(newThings, thing => {
-//     return {...thing, _user: req.user.id};
-//   }))
-//   .then(things => {
-//     res.json({
-//       data: things
-//     })
-//   })
-//   .catch(err => {
-//     next(err);
-//   });
-// });
-
 export default router;

@@ -52,9 +52,14 @@ describe('reducer API consumption', () => {
       'thing-id',
       'another-id'
     ]);
+
+    expect(store.getState()[c.NAME].byId).toEqual({
+      'thing-id': data[0],
+      'another-id': data[1]
+    });
   });
 
-  it('should map things by their IDs', () => {
+  it('should add new thing', () => {
 
     const data = [{
       name: 'A',
@@ -65,36 +70,25 @@ describe('reducer API consumption', () => {
     }];
 
     store.dispatch({
-      type: `${t.FETCH_ALL}_FULFILLED`,
-      payload: { data: { data } }
+      type: `${t.POST_THING}_FULFILLED`,
+      payload: { data: { data: data[0] } }
     });
 
+    expect(store.getState()[c.NAME].all.length).toBe(1);
     expect(store.getState()[c.NAME].byId).toEqual({
-      'a': {
-        name: 'A',
-        _id: 'a'
-      },
-      'b': {
-        name: 'B',
-        _id: 'b'
-      }
+      'a': data[0]
     });
-  });
-
-  it('should inject newly put things', () => {
-
-    const data = [
-      { _id: 'a', name: 'AAA' },
-      { _id: 'b', name: 'BBB' },
-      { _id: 'c', name: 'CCC' }
-    ];
 
     store.dispatch({
-      type: `${t.PUT_THINGS}_FULFILLED`,
-      payload: { data: { data } }
+      type: `${t.POST_THING}_FULFILLED`,
+      payload: { data: { data: data[1] } }
     });
 
-    expect(store.getState()[c.NAME].all).toEqual([ 'a', 'b', 'c' ]);
+    expect(store.getState()[c.NAME].all.length).toBe(2);
+    expect(store.getState()[c.NAME].byId).toEqual({
+      'a': data[0],
+      'b': data[1]
+    });
 
-  });
+  })
 });

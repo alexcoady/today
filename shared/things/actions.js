@@ -23,14 +23,3 @@ export const postThing = thing => {
     }
   };
 };
-
-// export const putThings = (data) => {
-//
-//   return {
-//     type: t.PUT_THINGS,
-//     payload: {
-//       promise: axios
-//         .put('/api/things/', data)
-//     }
-//   };
-// };

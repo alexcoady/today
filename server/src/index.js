@@ -13,7 +13,6 @@ import auth from './auth/router';
 import api from './api/router';
 
 const PORT = process.env.PORT || 8080;
-// const PROD = process.env.NODE_ENV || 'production';
 
 const app = express();
 
@@ -30,19 +29,17 @@ mongoose.connect(config.MONGODB);
 app.set('superSecret', config.SECRET);
 
 // middleware
-
-
 app.use(passport.initialize());
-
-// logging
 app.use(morgan('dev'));
 
+// routers
 app.use('/auth', auth);
-
 app.use('/api', api);
 
+// SPA
 app.use(fallback('index.html', { root: __dirname }));
 
+// start
 app.listen(PORT, () => {
   console.log(`server started, bitches PORT: ${PORT}`);
-})
+});
