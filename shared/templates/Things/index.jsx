@@ -14,14 +14,19 @@ class Things extends React.Component {
   render () {
 
     const {
-      postThing
+      deleteThing,
+      postThing,
+      putThing
     } = this.props;
 
     return (
       <div className={style.root}>
         <h1 className={style.title}>Manage your things</h1>
         <div className={style.thingList}>
-          <things.components.ThingList things={this.props.things} />
+          <things.components.ThingList
+            things={this.props.things}
+            handleUpdate={thing => putThing(thing)}
+            handleDelete={thing => deleteThing(thing)} />
           <things.components.ThingAddForm postThing={postThing} />
         </div>
       </div>
@@ -42,6 +47,8 @@ Things.propTypes = {
   isFetchingAll: T.bool.isRequired,
   hasFetchedAll: T.bool.isRequired,
   postThing: T.func.isRequired,
+  putThing: T.func.isRequired,
+  deleteThing: T.func.isRequired
 };
 
 const mapState = () => createStructuredSelector({
@@ -56,6 +63,14 @@ const mapDispatch = dispatch => ({
   },
   postThing: thing => {
     return dispatch(things.actions.postThing(thing)).catch(e => e);
+  },
+  putThing: thing => {
+    console.log(thing);
+    return dispatch(things.actions.putThing(thing)).catch(e => e);
+  },
+  deleteThing: thing => {
+    console.log(thing);
+    return dispatch(things.actions.deleteThing(thing)).catch(e => e);
   }
 });
 

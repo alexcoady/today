@@ -23,3 +23,23 @@ export const postThing = thing => {
     }
   };
 };
+
+export const putThing = thing => {
+
+  return {
+    type: t.PUT_THING,
+    payload: {
+      promise: axios.post('/api/things/', thing)
+    }
+  };
+};
+
+export const deleteThing = thing => {
+
+  return {
+    type: t.DELETE_THING,
+    payload: {
+      promise: axios.delete(`/api/things/${thing._id}`)
+    }
+  };
+};
