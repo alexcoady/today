@@ -65,11 +65,9 @@ const mapDispatch = dispatch => ({
     return dispatch(things.actions.postThing(thing)).catch(e => e);
   },
   putThing: thing => {
-    console.log(thing);
     return dispatch(things.actions.putThing(thing)).catch(e => e);
   },
   deleteThing: thing => {
-    console.log(thing);
     return dispatch(things.actions.deleteThing(thing)).catch(e => e);
   }
 });
