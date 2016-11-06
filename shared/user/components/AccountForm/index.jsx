@@ -1,34 +1,19 @@
-// NPM
+// NPM dependencies
 import React from 'react';
-import classnames from 'classnames/bind';
 import { createStructuredSelector } from 'reselect';
 import { Field, reduxForm, getFormValues } from 'redux-form';
 import { connect } from 'react-redux';
 
-// Feature
+// App dependencies
+import TextField from 'shared/form/TextField';
+
+// Feature dependencies
 import * as selectors from 'shared/user/selectors';
 import * as actions from 'shared/user/actions';
 
-// Component
+// Component dependencies
 import style from './account-form.css';
 import RadioLabel from './components/RadioLabel';
-
-const cx = classnames.bind(style);
-
-const NameField = ({ input, label, type, meta: { error, warning } }) => (
-  <div className={cx('field', { isError: error, isWarning: warning })}>
-    <label className={style.label} htmlFor={input.name}>{label}</label>
-    {error && <span className={style.error}>{error}</span>}
-    <input id={input.name} {...input} type={type} className={cx('text')} />
-  </div>
-);
-
-NameField.propTypes = {
-  input: React.PropTypes.object.isRequired,
-  label: React.PropTypes.string.isRequired,
-  type: React.PropTypes.string.isRequired,
-  meta: React.PropTypes.object.isRequired
-};
 
 const RadioGroup = ({ input, label, values, meta: { warning } }) => (
   <div className={style.field}>
@@ -67,7 +52,7 @@ class AccountForm extends React.Component {
 
         <form onSubmit={handleSubmit(submit)}>
 
-          <Field component={NameField} name="name" label="Your name" type="text" />
+          <Field component={TextField} name="name" label="Your name" type="text" />
           <Field component={RadioGroup} name="settings.daysPerWeek" label="How many good days make a good week?" values={[1,2,3,4,5,6,7]} />
           <Field component={RadioGroup} name="settings.weeksPerMonth" label="How many good weeks make a good month?" values={[1,2,3,4]} />
           <Field component={RadioGroup} name="settings.monthsPerYear" label="How many good months make a good year?" values={[1,2,3,4,5,6,7,8,9,10,11,12]} />

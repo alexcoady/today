@@ -2,14 +2,25 @@
 import React, { PropTypes as T } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
+// App dependencies
+import TextField from 'shared/form/TextField';
+
 // Component dependencies
 import style from './thing-item.css';
 
-const ThingItem = ({ initialValues, handleDelete, handleSubmit, handleUpdate }) => (
+const ThingItem = ({
+  initialValues,
+  handleDelete,
+  handleSubmit,
+  handleUpdate,
+  pristine,
+  submitting,
+  invalid
+}) => (
   <div className={style.root}>
     <form onSubmit={handleSubmit(handleUpdate)}>
-      <Field type="text" component="input" name="name" />
-      <button type="submit">Save</button>
+      <Field component={TextField} type="text" name="name" label="Thing" />
+      <button type="submit" disabled={pristine || submitting || invalid}>Save</button>
       <button type="button" onClick={() => {
         handleDelete(initialValues)
       }}>Delete</button>
@@ -25,7 +36,21 @@ ThingItem.propTypes = {
     name: T.string.isRequired
   }).isRequired,
   handleDelete: T.func.isRequired,
-  handleUpdate: T.func.isRequired
+  handleUpdate: T.func.isRequired,
+  pristine: T.bool.isRequired,
+  submitting: T.bool.isRequired,
+  invalid: T.bool.isRequired
 };
 
-export default reduxForm()(ThingItem);
+const validate = values => {
+
+  const errors = {};
+
+  if (!values.name) errors.name = 'Give this thing a name';
+
+  return errors;
+};
+
+export default reduxForm({
+  validate
+})(ThingItem);
