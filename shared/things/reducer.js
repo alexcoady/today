@@ -2,6 +2,7 @@
 import _clone from 'lodash/clone';
 import _each from 'lodash/each';
 import _map from 'lodash/map';
+import _without from 'lodash/without';
 import { combineReducers } from 'redux';
 
 // App dependencies
@@ -19,6 +20,9 @@ const all = (state = [], action) => {
     case `${t.POST_THING}_FULFILLED`: {
       return [].concat(state, action.payload.data.data._id);
     }
+    case `${t.DELETE_THING}_FULFILLED`: {
+      return _without(state, action.payload.data.data._id);
+    }
   }
 
   return state;
@@ -33,9 +37,13 @@ const byId = (state = {}, action) => {
       const newState = _clone(state);
       const things = [].concat(action.payload.data.data);
       _each(things, thing => {
-        console.log(`setting ${thing.name}`);
         newState[thing._id] = thing;
       });
+      return newState;
+    }
+    case `${t.DELETE_THING}_FULFILLED`: {
+      const newState = _clone(state);
+      delete newState[action.payload.data.data._id];
       return newState;
     }
   }
