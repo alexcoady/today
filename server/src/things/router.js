@@ -1,5 +1,5 @@
 // NPM dependencies
-import _ from 'lodash';
+// import _ from 'lodash';
 import { Router } from 'express';
 
 // Feature dependencies
@@ -28,6 +28,19 @@ router.get('/', (req, res) => {
 router.post('/', (req, res, next) => {
 
   Thing.create({...req.body, _user: req.user.id})
+  .then(thing => {
+    res.json({
+      data: thing
+    })
+  })
+  .catch(err => {
+    next(err);
+  });
+});
+
+router.put('/:_id', (req, res, next) => {
+
+  Thing.findByIdAndUpdate(req.params._id, { name: req.body.name })
   .then(thing => {
     res.json({
       data: thing

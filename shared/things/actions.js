@@ -29,7 +29,7 @@ export const putThing = thing => {
   return {
     type: t.PUT_THING,
     payload: {
-      promise: axios.post('/api/things/', thing)
+      promise: axios.put(`/api/things/${thing._id}`, thing)
     }
   };
 };
