@@ -41,7 +41,11 @@ router.post('/', (req, res, next) => {
 
 router.put('/:_id', (req, res, next) => {
 
-  Thing.findByIdAndUpdate(req.params._id, { name: req.body.name })
+  Thing.findById(req.params._id)
+  .then(thing => {
+    thing.name = req.body.name;
+    return thing.save();
+  })
   .then(thing => {
     res.json({
       data: thing
@@ -54,7 +58,11 @@ router.put('/:_id', (req, res, next) => {
 
 router.delete('/:_id', (req, res, next) => {
 
-  Thing.findByIdAndUpdate(req.params._id, { deleted: true })
+  Thing.findById(req.params._id)
+  .then(thing => {
+    thing.deleted = true;
+    return thing.save();
+  })
   .then(thing => {
     res.json({
       data: thing

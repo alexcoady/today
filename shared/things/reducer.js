@@ -27,11 +27,13 @@ const all = (state = [], action) => {
 const byId = (state = {}, action) => {
 
   switch (action.type) {
+    case `${t.PUT_THING}_FULFILLED`:
     case `${t.POST_THING}_FULFILLED`:
     case `${t.FETCH_ALL}_FULFILLED`: {
       const newState = _clone(state);
       const things = [].concat(action.payload.data.data);
       _each(things, thing => {
+        console.log(`setting ${thing.name}`);
         newState[thing._id] = thing;
       });
       return newState;
