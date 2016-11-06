@@ -11,6 +11,8 @@ import thingsReducer from './reducer';
 import * as t from './actionTypes';
 import * as c from './constants';
 
+const NAME = c.NAME;
+
 describe('reducer setup', () => {
 
   it('should return initial value', () => {
@@ -48,12 +50,12 @@ describe('reducer API consumption', () => {
       payload: { data: { data } }
     });
 
-    expect(store.getState()[c.NAME].all).toEqual([
+    expect(store.getState()[NAME].all).toEqual([
       'thing-id',
       'another-id'
     ]);
 
-    expect(store.getState()[c.NAME].byId).toEqual({
+    expect(store.getState()[NAME].byId).toEqual({
       'thing-id': data[0],
       'another-id': data[1]
     });
@@ -74,8 +76,8 @@ describe('reducer API consumption', () => {
       payload: { data: { data: data[0] } }
     });
 
-    expect(store.getState()[c.NAME].all.length).toBe(1);
-    expect(store.getState()[c.NAME].byId).toEqual({
+    expect(store.getState()[NAME].all.length).toBe(1);
+    expect(store.getState()[NAME].byId).toEqual({
       'a': data[0]
     });
 
@@ -84,11 +86,75 @@ describe('reducer API consumption', () => {
       payload: { data: { data: data[1] } }
     });
 
-    expect(store.getState()[c.NAME].all.length).toBe(2);
-    expect(store.getState()[c.NAME].byId).toEqual({
+    expect(store.getState()[NAME].all.length).toBe(2);
+    expect(store.getState()[NAME].byId).toEqual({
       'a': data[0],
       'b': data[1]
     });
-
   })
+
+  it('should update a thing', () => {
+
+    const fetchAllData = [{
+      name: 'A',
+      _id: 'a'
+    }, {
+      name: 'B',
+      _id: 'b'
+    }];
+
+    const putData = {
+      name: 'C',
+      _id: 'b'
+    };
+
+    store.dispatch({
+      type: `${t.FETCH_ALL}_FULFILLED`,
+      payload: { data: { data: fetchAllData } }
+    });
+
+    expect(store.getState()[NAME].all).toEqual(['a', 'b']);
+    expect(store.getState()[NAME].byId['b'].name).toBe('B');
+
+    store.dispatch({
+      type: `${t.PUT_THING}_FULFILLED`,
+      payload: { data: { data: putData } }
+    });
+
+    expect(store.getState()[NAME].all).toEqual(['a', 'b']);
+    expect(store.getState()[NAME].byId['b'].name).toBe('C');
+  });
+
+  it('should delete a thing', () => {
+
+    const fetchAllData = [{
+      name: 'A',
+      _id: 'a'
+    }, {
+      name: 'B',
+      _id: 'b'
+    }];
+
+    const deleteData = {
+      _id: 'a'
+    };
+
+    store.dispatch({
+      type: `${t.FETCH_ALL}_FULFILLED`,
+      payload: { data: { data: fetchAllData } }
+    });
+
+    expect(store.getState()[NAME].all.length).toBe(2)
+    expect(store.getState()[NAME].byId['a']).toBeDefined();
+    expect(store.getState()[NAME].byId['b']).toBeDefined();
+
+    store.dispatch({
+      type: `${t.DELETE_THING}_FULFILLED`,
+      payload: { data: { data: deleteData } }
+    });
+
+    expect(store.getState()[NAME].all.length).toBe(1);
+    expect(store.getState()[NAME].byId['a']).toBeUndefined();
+    expect(store.getState()[NAME].byId['b']).toBeDefined();
+  });
 });
