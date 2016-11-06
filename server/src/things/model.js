@@ -8,7 +8,11 @@ export const thingSchema = new Schema({
   },
   name: String,
   slug: String,
-  description: String
+  description: String,
+  deleted: {
+    type: Boolean,
+    default: false
+  }
 });
 
 const Thing = mongoose.model('Thing', thingSchema);

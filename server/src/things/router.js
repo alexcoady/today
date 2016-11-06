@@ -10,7 +10,8 @@ const router = Router();
 router.get('/', (req, res) => {
 
   Thing.find({
-    _user: req.user
+    _user: req.user,
+    deleted: false
   })
   .exec()
   .then(things => {
@@ -41,6 +42,19 @@ router.post('/', (req, res, next) => {
 router.put('/:_id', (req, res, next) => {
 
   Thing.findByIdAndUpdate(req.params._id, { name: req.body.name })
+  .then(thing => {
+    res.json({
+      data: thing
+    })
+  })
+  .catch(err => {
+    next(err);
+  });
+});
+
+router.delete('/:_id', (req, res, next) => {
+
+  Thing.findByIdAndUpdate(req.params._id, { deleted: true })
   .then(thing => {
     res.json({
       data: thing
