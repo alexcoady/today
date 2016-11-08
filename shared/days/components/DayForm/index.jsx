@@ -1,8 +1,6 @@
 // NPM dependencies
-import React from 'react';
+import React, { PropTypes as T } from 'react';
 import dateformat from 'dateformat';
-import _findLast from 'lodash/findLast';
-import _isDate from 'lodash/isDate';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Field, reduxForm, getFormValues } from 'redux-form';
@@ -13,7 +11,6 @@ import Loader from 'shared/ui/components/Loader'
 
 // Component dependencies
 import style from './day-form.css';
-import MainCTA from './components/MainCTA';
 
 class DayForm extends React.Component {
 
@@ -23,7 +20,9 @@ class DayForm extends React.Component {
       formValues,
       handleSubmit,
       postDay,
-      submitting,
+      reset,
+      pristine,
+      submitting
     } = this.props;
 
     const submit = () => postDay(formValues);
@@ -34,32 +33,26 @@ class DayForm extends React.Component {
       <div>
         <form onSubmit={handleSubmit(submit)}>
 
+          <pre>{JSON.stringify(formValues)}</pre>
+
           <Field className={style.date} component="input" type="hidden" name="date" />
 
           <div className={style.field}>
-            <Field component={MainCTA} name="isGood" />
+            <Field component="input" type="radio" name="isGood" value={'1'} />
+            <Field component="input" type="radio" name="isGood" value={'0'} />
           </div>
 
-          <button className={style.save} type="submit" disabled={submitting}>Save</button>
+          {typeof formValues.isGood === 'undefined' && <div>UNDEFINED</div>}
+          {formValues.isGood === '1' && <div>Good day!</div>}
+          {formValues.isGood === '0' && <div>bad day :(</div>}
+
+          <button className={style.save} type="submit" disabled={pristine || submitting}>Save</button>
+          <button className={style.save} type="button" onClick={reset} disabled={pristine || submitting}>Reset</button>
         </form>
       </div>
     );
   }
 }
-
-const datesSame = (date1, date2) => {
-
-  console.log(date1, date2)
-
-  let d1 = _isDate(date1) ? date1 : new Date(date1);
-  let d2 = _isDate(date2) ? date2 : new Date(date2);
-
-  if (!_isDate(d1) || !_isDate(d2)) return false;
-
-  return d1.getDate() === d2.getDate()
-    && d1.getMonth() === d2.getMonth()
-    && d1.getFullYear() === d2.getFullYear() ? true : false;
-};
 
 const getInitialValues = () => {
 
@@ -85,11 +78,13 @@ const mapDispatch = dispatch => {
 }
 
 DayForm.propTypes = {
-  days: React.PropTypes.array.isRequired,
-  formValues: React.PropTypes.object,
-  handleSubmit: React.PropTypes.func.isRequired,
-  postDay: React.PropTypes.func.isRequired,
-  submitting: React.PropTypes.bool.isRequired
+  days: T.array.isRequired,
+  formValues: T.object,
+  handleSubmit: T.func.isRequired,
+  postDay: T.func.isRequired,
+  reset: T.func.isRequired,
+  pristine: T.bool.isRequired,
+  submitting: T.bool.isRequired
 };
 
 export default connect(mapState, mapDispatch)(reduxForm({

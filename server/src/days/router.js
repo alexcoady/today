@@ -20,24 +20,26 @@ router.get('/', (req, res) => {
   });
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', (req, res) => {
 
-  const day = new Day({
-    _user: req.user,
-    date: req.body.date,
-    isGood: req.body.isGood
-  });
+  Day.findOne({ date: req.body.date })
+  .then(foundDay => {
 
-  day.save(err => {
-
-    if (err) return next(err);
-
-    res.json({
-      data: {
-        day: day
-      }
+    if (!foundDay) return Day.create({
+      _user: req.user,
+      date: req.body.date,
+      isGood: req.body.isGood === '1'
     });
+
+    return foundDay;
+
   })
+  .then(day => {
+    res.send({ data: { day } });
+  })
+  .catch(err => {
+    res.json({ errors: [err] })
+  });
 });
 
 export default router;
