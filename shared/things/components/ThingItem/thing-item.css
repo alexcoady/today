@@ -1,0 +1,7 @@
+@import 'vars';
+@import 'form';
+@import 'mixins';
+
+.field {
+  composes: standard-field;
+}

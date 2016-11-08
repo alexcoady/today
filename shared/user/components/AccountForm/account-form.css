@@ -2,26 +2,6 @@
 @import 'mixins';
 @import 'form';
 
-.field {
-  composes: standard-field;
-}
-
-.label {
-  composes: standard-label;
-}
-
-.error {
-  composes: standard-error;
-}
-
-.warning {
-  composes: standard-warning;
-}
-
-.text {
-  composes: standard-text;
-}
-
 .radioGroup {
   display: flex;
   align-items: center;

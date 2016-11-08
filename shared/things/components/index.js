@@ -1,5 +1,7 @@
-import ThingsForm from './ThingsForm';
+import ThingAddForm from './ThingAddForm';
+import ThingList from './ThingList';
 
 export {
-  ThingsForm
+  ThingAddForm,
+  ThingList
 };

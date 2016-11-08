@@ -1,6 +1,5 @@
 // NPM dependencies
 import React from 'react';
-import cookie from 'react-cookie';
 import dateformat from 'dateformat';
 import _findLast from 'lodash/findLast';
 import _isDate from 'lodash/isDate';
@@ -80,8 +79,7 @@ const mapDispatch = dispatch => {
 
   return {
     postDay: data => {
-      const token = cookie.load('token');
-      return dispatch(actions.postDay(data, token));
+      return dispatch(actions.postDay(data));
     }
   };
 }

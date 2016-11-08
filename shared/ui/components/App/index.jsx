@@ -1,6 +1,7 @@
 // NPM
 import React from 'react';
 import cookie from 'react-cookie';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -42,9 +43,9 @@ class App extends React.Component {
 
   componentWillMount () {
 
-    const { isAuthenticated } = this.props;
+    axios.defaults.headers.common['x-access-token'] = cookie.load('token');
 
-    if (isAuthenticated) return;
+    if (this.props.isAuthenticated) return;
 
     this.props.fetchAccount();
   }
@@ -62,8 +63,7 @@ const mapDispatch = dispatch => {
 
   return {
     fetchAccount: () => {
-      const token = cookie.load('token');
-      return dispatch(user.actions.fetchAccount(token));
+      return dispatch(user.actions.fetchAccount());
     },
     logOut: () => {
       cookie.remove('token');

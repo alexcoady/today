@@ -1,5 +1,5 @@
 // NPM dependencies
-import _ from 'lodash';
+// import _ from 'lodash';
 import { Router } from 'express';
 
 // Feature dependencies
@@ -10,7 +10,8 @@ const router = Router();
 router.get('/', (req, res) => {
 
   Thing.find({
-    _user: req.user
+    _user: req.user,
+    deleted: false
   })
   .exec()
   .then(things => {
@@ -25,19 +26,46 @@ router.get('/', (req, res) => {
   })
 });
 
-router.put('/', (req, res, next) => {
+router.post('/', (req, res, next) => {
 
-  const newThings = _.filter(req.body.things, thing => !thing._id);
-
-  console.log('all', req.body.things);
-  console.log('new', newThings);
-
-  Thing.insertMany(_.map(newThings, thing => {
-    return {...thing, _user: req.user.id};
-  }))
-  .then(things => {
+  Thing.create({...req.body, _user: req.user.id})
+  .then(thing => {
     res.json({
-      data: things
+      data: thing
+    })
+  })
+  .catch(err => {
+    next(err);
+  });
+});
+
+router.put('/:_id', (req, res, next) => {
+
+  Thing.findById(req.params._id)
+  .then(thing => {
+    thing.name = req.body.name;
+    return thing.save();
+  })
+  .then(thing => {
+    res.json({
+      data: thing
+    })
+  })
+  .catch(err => {
+    next(err);
+  });
+});
+
+router.delete('/:_id', (req, res, next) => {
+
+  Thing.findById(req.params._id)
+  .then(thing => {
+    thing.deleted = true;
+    return thing.save();
+  })
+  .then(thing => {
+    res.json({
+      data: thing
     })
   })
   .catch(err => {
