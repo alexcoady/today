@@ -29,25 +29,18 @@ class Header extends React.Component {
     );
   }
 
-  renderUnauthenticatedContent () {
-
-    return (
-      <a href="/auth/facebook">Login / register with Facebook</a>
-    );
-  }
-
   render () {
 
     const { isAuthenticated } = this.props;
 
-    const content = isAuthenticated
-      ? this.renderAuthenticatedContent()
-      : this.renderUnauthenticatedContent();
+    const content = isAuthenticated && this.renderAuthenticatedContent();
+    const options = isAuthenticated && this.renderOptions();
 
     return (
       <div className={style.root}>
         <div className={style.inner}>
           <Link className={style.logo} to="/">Today</Link>
+          {options}
           {content}
         </div>
       </div>

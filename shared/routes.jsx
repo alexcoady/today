@@ -1,7 +1,6 @@
 // NPM
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import { routerActions } from 'react-router-redux';
 import { UserAuthWrapper } from 'redux-auth-wrapper'
 
 // App
@@ -12,15 +11,14 @@ import templates from 'shared/templates';
 const UserAuthenticated = UserAuthWrapper({
   authSelector: user.selectors.getAccount,
   authenticatingSelector: user.selectors.getIsAuthenticating,
-  redirectActions: routerActions.replace,
   wrapperDisplayName: 'UserAuthenticated',
-  failureRedirectPath: '/',
+  FailureComponent: templates.SignIn,
   LoadingComponent: ui.components.Loader
 });
 
 export default (
   <Route path="/" name="app" component={ui.components.App}>
-    <IndexRoute component={templates.Overview} />
+    <IndexRoute component={UserAuthenticated(templates.Overview)} />
     <Route path="account">
       <IndexRoute component={UserAuthenticated(templates.Account)}/>
       <Route path="settings" component={UserAuthenticated(templates.Account)} />

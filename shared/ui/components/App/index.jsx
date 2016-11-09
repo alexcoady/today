@@ -47,7 +47,9 @@ class App extends React.Component {
 
     if (this.props.isAuthenticated) return;
 
-    this.props.fetchAccount();
+    this.props.fetchAccount().catch(() => {
+      console.log('User could not be logged in');
+    });
   }
 }
 
