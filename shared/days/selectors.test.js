@@ -34,15 +34,17 @@ describe('Selects days', () => {
 
   });
 
-  it('returns null when day is not in store', () => {
+  it('returns undefined when day is not in store', () => {
 
     const now = new Date();
     const yesterday = new Date().setDate(now.getDate() - 1);
     const tomorrow = new Date().setDate(now.getDate() + 1);
 
     const getResponse = [{
+      _id: 1,
       date: yesterday
     }, {
+      _id: 2,
       date: tomorrow
     }];
 
@@ -55,7 +57,7 @@ describe('Selects days', () => {
 
     const today = selectors.getToday(store.getState());
 
-    expect(today).toBe(null);
+    expect(today).toBeUndefined();
   });
 
 });

@@ -20,7 +20,7 @@ describe('setup', () => {
 
     expect(reducer(undefined, {})).toEqual({
       all: [],
-      byDate: {},
+      byId: {},
       isFetchingAll: false,
       hasFetchedAll: false
     });
@@ -31,44 +31,23 @@ describe('setup', () => {
 
 describe('API responses', () => {
 
-  it('should map to correct date format yyyy-mm-dd', () => {
-
-    const store = createStore(rootReducer);
-
-    // months are 0-indexed
-    const getResponse = [{
-      date: new Date(2016, 10, 20)
-    }, {
-      date: new Date(2016, 10, 15, 15, 57, 45)
-    }];
-
-    store.dispatch({
-      type: `${t.FETCH_ALL}_FULFILLED`,
-      payload: { data: { data: getResponse } }
-    });
-
-    expect(store.getState()[NAME].all[0]).toBe('2016-11-20');
-    expect(store.getState()[NAME].all[1]).toBe('2016-11-15');
-
-    expect(store.getState()[NAME].byDate['2016-11-20']).toBeDefined();
-    expect(store.getState()[NAME].byDate['2016-11-15']).toBeDefined();
-
-  });
-
   it('should update day after successful PUT request', () => {
 
     const store = createStore(rootReducer);
 
     // months are 0-indexed
     const getResponse = [{
+      _id: 1,
       date: new Date(2016, 10, 1),
       isGood: true
     }, {
+      _id: 2,
       date: new Date(2016, 10, 2),
       isGood: true
     }];
 
     const putResponse = {
+      _id: 1,
       date: new Date(2016, 10, 1),
       isGood: false
     };
@@ -78,18 +57,16 @@ describe('API responses', () => {
       payload: { data: { data: getResponse } }
     });
 
-    expect(store.getState()[NAME].byDate['2016-11-01'].isGood).toBe(true);
-    expect(store.getState()[NAME].byDate['2016-11-02'].isGood).toBe(true);
+    expect(store.getState()[NAME].byId[1].isGood).toBe(true);
+    expect(store.getState()[NAME].byId[2].isGood).toBe(true);
 
     store.dispatch({
       type: `${t.PUT_DAY}_FULFILLED`,
       payload: { data: { data: putResponse } }
     });
 
-    expect(store.getState()[NAME].byDate['2016-11-01'].isGood).toBe(false);
-    expect(store.getState()[NAME].byDate['2016-11-02'].isGood).toBe(true);
-
-    console.log(store.getState()[NAME]);
+    expect(store.getState()[NAME].byId[1].isGood).toBe(false);
+    expect(store.getState()[NAME].byId[2].isGood).toBe(true);
 
   });
 
