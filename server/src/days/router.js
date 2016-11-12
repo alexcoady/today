@@ -35,7 +35,22 @@ router.post('/', (req, res) => {
 
   })
   .then(day => {
-    res.send({ data: { day } });
+    res.send({ data: day });
+  })
+  .catch(err => {
+    res.json({ errors: [err] })
+  });
+});
+
+router.put('/:_id', (req, res) => {
+
+  Day.findOne({ _id: req.params._id })
+  .then(day => {
+    day.isGood = req.body.isGood === '1';
+    return day.save();
+  })
+  .then(day => {
+    res.send({ data: day });
   })
   .catch(err => {
     res.json({ errors: [err] })

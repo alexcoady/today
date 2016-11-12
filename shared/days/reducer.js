@@ -29,12 +29,12 @@ const byDate = (state = {}, { type, payload }) => {
 
   switch (type) {
     case `${t.FETCH_ALL}_FULFILLED`:
-
       return _reduce(payload.data.data, (result, value) => {
         return {...result, [format(value.date)]: value};
       }, {});
 
     case `${t.POST_DAY}_FULFILLED`:
+    case `${t.PUT_DAY}_FULFILLED`:
       return {...state, [format(payload.data.data.date)]: payload.data.data};
   }
 

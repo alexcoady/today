@@ -23,3 +23,13 @@ export const postDay = data => {
     }
   };
 };
+
+export const putDay = data => {
+
+  return {
+    type: t.PUT_DAY,
+    payload: {
+      promise: axios.put(`/api/days/${data._id}`, data)
+    }
+  };
+};

@@ -1,6 +1,5 @@
 // NPM
 import React, { PropTypes as T } from 'react';
-import dateformat from 'dateformat';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -13,7 +12,7 @@ import style from './overview.css';
 class Overview extends React.Component {
 
   render () {
-    
+
     return (
       <div className={style.root}>
         <div className={style.inner}>

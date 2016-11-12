@@ -18,17 +18,16 @@ class DayForm extends React.Component {
 
     const {
       formValues,
-      initialValues,
       handleSubmit,
+      initialValues,
       postDay,
+      putDay,
       reset,
       pristine,
       submitting
     } = this.props;
 
-    console.log(initialValues);
-
-    const submit = () => postDay(formValues);
+    const submit = () => initialValues._id ? putDay(formValues) : postDay(formValues);
 
     if (!formValues) return <Loader />;
 
@@ -37,6 +36,8 @@ class DayForm extends React.Component {
         <form onSubmit={handleSubmit(submit)}>
 
           <pre>{JSON.stringify(formValues)}</pre>
+
+          <Field component="input" type="hidden" name="_id" />
 
           <Field className={style.date} component="input" type="hidden" name="date" />
 
@@ -59,15 +60,15 @@ class DayForm extends React.Component {
 
 const getInitialValues = (state, { today = {} }) => {
 
-  if (today) {
+  if (today) return {
+    date: dateformat(today.date, 'yyyy-mm-dd'),
+    isGood: today.isGood === true ? '1' : '0',
+    _id: today._id
+  };
 
-    return {
-      date: dateformat(today.date, 'yyyy-mm-dd'),
-      isGood: today.isGood === true ? '1' : '0'
-    }
-  }
-
-  return {};
+  return {
+    date: dateformat(new Date(), 'yyyy-mm-dd')
+  };
 };
 
 const mapState = () => {
@@ -82,15 +83,20 @@ const mapDispatch = dispatch => {
   return {
     postDay: data => {
       return dispatch(actions.postDay(data));
-    }
+    },
+    putDay: data => {
+      return dispatch(actions.putDay(data));
+    },
   };
 }
 
 DayForm.propTypes = {
   formValues: T.object,
+  initialValues: T.object,
   today: T.object,
   handleSubmit: T.func.isRequired,
   postDay: T.func.isRequired,
+  putDay: T.func.isRequired,
   reset: T.func.isRequired,
   pristine: T.bool.isRequired,
   submitting: T.bool.isRequired
