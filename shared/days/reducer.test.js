@@ -6,7 +6,6 @@ import { createStore } from 'redux';
 // App dependencies
 import rootReducer from 'shared/reducer';
 import reducer from './reducer';
-import * as selectors from './selectors';
 
 // Feature dependencies
 import * as t from './actionTypes';

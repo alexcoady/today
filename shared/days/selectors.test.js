@@ -11,8 +11,6 @@ import * as selectors from './selectors';
 // Feature dependencies
 import * as t from './actionTypes';
 
-// const format = date => dateformat(date, 'yyyy-mm-dd');
-
 describe('Selects days', () => {
 
   it('returns today', () => {
