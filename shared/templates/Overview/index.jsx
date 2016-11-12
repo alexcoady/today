@@ -1,6 +1,6 @@
 // NPM
-import React from 'react';
-import cookie from 'react-cookie';
+import React, { PropTypes as T } from 'react';
+import dateformat from 'dateformat';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -13,13 +13,14 @@ import style from './overview.css';
 class Overview extends React.Component {
 
   render () {
-
+    
     return (
       <div className={style.root}>
         <div className={style.inner}>
           <h1 className={style.title}>Was today a good day?</h1>
           <div className={style.dayForm}>
-            <days.components.DayForm days={this.props.days} />
+            <days.components.DayForm
+              today={this.props.today} />
           </div>
         </div>
       </div>
@@ -39,6 +40,7 @@ class Overview extends React.Component {
 }
 
 const mapState = () => createStructuredSelector({
+  today: days.selectors.getToday,
   days: days.selectors.getAll,
   hasFetchedAllDays: days.selectors.getHasFetchedAll,
   isFetchingAllDays: days.selectors.getIsFetchingAll
@@ -47,17 +49,17 @@ const mapState = () => createStructuredSelector({
 const mapDispatch = dispatch => {
   return {
     fetchAllDays: () => {
-      const token = cookie.load('token');
-      dispatch(days.actions.fetchAll(token)).catch(e => e);
+      dispatch(days.actions.fetchAll()).catch(e => e);
     }
   };
 };
 
 Overview.propTypes = {
-  fetchAllDays: React.PropTypes.func.isRequired,
-  days: React.PropTypes.array.isRequired,
-  hasFetchedAllDays: React.PropTypes.bool.isRequired,
-  isFetchingAllDays: React.PropTypes.bool.isRequired,
+  fetchAllDays: T.func.isRequired,
+  today: T.object,
+  days: T.array.isRequired,
+  hasFetchedAllDays: T.bool.isRequired,
+  isFetchingAllDays: T.bool.isRequired,
 };
 
 export default connect(mapState, mapDispatch)(Overview);

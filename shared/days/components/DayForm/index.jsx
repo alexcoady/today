@@ -18,12 +18,15 @@ class DayForm extends React.Component {
 
     const {
       formValues,
+      initialValues,
       handleSubmit,
       postDay,
       reset,
       pristine,
       submitting
     } = this.props;
+
+    console.log(initialValues);
 
     const submit = () => postDay(formValues);
 
@@ -54,11 +57,17 @@ class DayForm extends React.Component {
   }
 }
 
-const getInitialValues = () => {
+const getInitialValues = (state, { today = {} }) => {
 
-  return {
-    date: dateformat(Date.now(), 'yyyy-mm-dd')
-  };
+  if (today) {
+
+    return {
+      date: dateformat(today.date, 'yyyy-mm-dd'),
+      isGood: today.isGood === true ? '1' : '0'
+    }
+  }
+
+  return {};
 };
 
 const mapState = () => {
@@ -78,8 +87,8 @@ const mapDispatch = dispatch => {
 }
 
 DayForm.propTypes = {
-  days: T.array.isRequired,
   formValues: T.object,
+  today: T.object,
   handleSubmit: T.func.isRequired,
   postDay: T.func.isRequired,
   reset: T.func.isRequired,
@@ -88,5 +97,6 @@ DayForm.propTypes = {
 };
 
 export default connect(mapState, mapDispatch)(reduxForm({
-  form: 'day-form'
+  form: 'day-form',
+  enableReinitialize: true
 })(DayForm));
