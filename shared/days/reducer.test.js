@@ -55,4 +55,42 @@ describe('API responses', () => {
 
   });
 
+  it('should update day after successful PUT request', () => {
+
+    const store = createStore(rootReducer);
+
+    // months are 0-indexed
+    const getResponse = [{
+      date: new Date(2016, 10, 1),
+      isGood: true
+    }, {
+      date: new Date(2016, 10, 2),
+      isGood: true
+    }];
+
+    const putResponse = {
+      date: new Date(2016, 10, 1),
+      isGood: false
+    };
+
+    store.dispatch({
+      type: `${t.FETCH_ALL}_FULFILLED`,
+      payload: { data: { data: getResponse } }
+    });
+
+    expect(store.getState()[NAME].byDate['2016-11-01'].isGood).toBe(true);
+    expect(store.getState()[NAME].byDate['2016-11-02'].isGood).toBe(true);
+
+    store.dispatch({
+      type: `${t.PUT_DAY}_FULFILLED`,
+      payload: { data: { data: putResponse } }
+    });
+
+    expect(store.getState()[NAME].byDate['2016-11-01'].isGood).toBe(false);
+    expect(store.getState()[NAME].byDate['2016-11-02'].isGood).toBe(true);
+
+    console.log(store.getState()[NAME]);
+
+  });
+
 })
