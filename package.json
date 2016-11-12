@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage",
-    "test:watch": "npm test -- --coverage --watch",
+    "test:nocoverage": "jest",
+    "test:watch": "npm run test:nocoverage -- --watch",
     "start": "run-p start:*",
     "validate": "webpack-validator tasks/webpack.client.config.js",
     "webpack:client": "webpack --config tasks/webpack.client.config.js",
