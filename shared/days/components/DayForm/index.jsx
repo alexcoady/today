@@ -46,7 +46,6 @@ class DayForm extends React.Component {
             <Field component="input" type="radio" name="isGood" value={'0'} />
           </div>
 
-          {typeof formValues.isGood === 'undefined' && <div>UNDEFINED</div>}
           {formValues.isGood === '1' && <div>Good day!</div>}
           {formValues.isGood === '0' && <div>bad day :(</div>}
 
