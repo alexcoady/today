@@ -60,7 +60,7 @@ class DayForm extends React.Component {
 
 const getInitialValues = (state, { today = {} }) => {
 
-  if (today) return {
+  if (today._id) return {
     date: dateformat(today.date, 'yyyy-mm-dd'),
     isGood: today.isGood === true ? '1' : '0',
     _id: today._id
