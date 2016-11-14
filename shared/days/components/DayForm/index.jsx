@@ -3,7 +3,7 @@ import React, { PropTypes as T } from 'react';
 import dateformat from 'dateformat';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Field, reduxForm, getFormValues } from 'redux-form';
+import { Field, FieldArray, reduxForm, getFormValues } from 'redux-form';
 
 // App dependencies
 import * as actions from './../../actions';
@@ -11,6 +11,26 @@ import Loader from 'shared/ui/components/Loader'
 
 // Component dependencies
 import style from './day-form.css';
+
+const ThingArray = ({ fields, things }) => (
+  <div>
+    <h1>Fields!</h1>
+    <pre>{JSON.stringify(fields)}</pre>
+    {things.map(thing => (
+      <div key={thing._id}>
+        <label>
+          <Field
+            component="input"
+            type="checkbox"
+            name={`things[${thing._id}]`}
+            value={thing._id} />
+          {thing.name}
+        </label>
+      </div>
+
+    ))}
+  </div>
+);
 
 class DayForm extends React.Component {
 
@@ -49,10 +69,21 @@ class DayForm extends React.Component {
           {formValues.isGood === '1' && <div>Good day!</div>}
           {formValues.isGood === '0' && <div>bad day :(</div>}
 
+          {initialValues._id && <div>
+            {this.thingsList()}
+          </div>}
+
           <button className={style.save} type="submit" disabled={pristine || submitting}>Save</button>
           <button className={style.save} type="button" onClick={reset} disabled={pristine || submitting}>Reset</button>
         </form>
       </div>
+    );
+  }
+
+  thingsList () {
+
+    return (
+      <FieldArray name="things" component={ThingArray} things={this.props.things} />
     );
   }
 }
